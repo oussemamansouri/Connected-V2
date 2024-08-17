@@ -1,4 +1,4 @@
-# Connected
+# Connected V2
 I'm thrilled to present the culmination of my hard work and dedication – the presentation of my latest project, "Connected"!
 
 Connected is more than just a platform; it's a bridge connecting training centers with eager learners across Tunisia. Utilizing Angular, Spring Boot, and a SQL database, I developed the first version of this intuitive platform, facilitating seamless interactions between learners and educational institutions.
