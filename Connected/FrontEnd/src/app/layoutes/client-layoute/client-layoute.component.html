@@ -1,0 +1,198 @@
+<header id="header" class="header fixed-top d-flex align-items-center">
+  <div class="d-flex align-items-center justify-content-between"> <a routerLink="/" class="logo d-flex align-items-center"> <img src="../../../assets/admin/img/logooo.png" alt="">   </a>  <i (click)="sidebarToggle()" class="bi bi-list toggle-sidebar-btn"></i></div>
+
+  <!-- <div class="search-bar">
+     <form class="search-form d-flex align-items-center" > <input type="text" name="query" placeholder="Search" title="Enter search keyword"> <button type="submit" title="Search"><i class="bi bi-search"></i></button></form>
+  </div> -->
+
+  <nav class="header-nav ms-auto">
+     <ul class="d-flex align-items-center">
+        <!-- <li class="nav-item d-block d-lg-none"> <a class="nav-link nav-icon search-bar-toggle " href="#"> <i class="bi bi-search"></i> </a></li> -->
+        <!-- <li class="nav-item dropdown">
+           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i> <span class="badge bg-primary badge-number">4</span> </a>
+           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+              <li class="dropdown-header"> You have 4 new notifications <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a></li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="notification-item">
+                 <i class="bi bi-exclamation-circle text-warning"></i>
+                 <div>
+                    <h4>Lorem Ipsum</h4>
+                    <p>Quae dolorem earum veritatis oditseno</p>
+                    <p>30 min. ago</p>
+                 </div>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="notification-item">
+                 <i class="bi bi-x-circle text-danger"></i>
+                 <div>
+                    <h4>Atque rerum nesciunt</h4>
+                    <p>Quae dolorem earum veritatis oditseno</p>
+                    <p>1 hr. ago</p>
+                 </div>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="notification-item">
+                 <i class="bi bi-check-circle text-success"></i>
+                 <div>
+                    <h4>Sit rerum fuga</h4>
+                    <p>Quae dolorem earum veritatis oditseno</p>
+                    <p>2 hrs. ago</p>
+                 </div>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="notification-item">
+                 <i class="bi bi-info-circle text-primary"></i>
+                 <div>
+                    <h4>Dicta reprehenderit</h4>
+                    <p>Quae dolorem earum veritatis oditseno</p>
+                    <p>4 hrs. ago</p>
+                 </div>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="dropdown-footer"> <a href="#">Show all notifications</a></li>
+           </ul>
+        </li> -->
+        <!-- <li class="nav-item dropdown">
+           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> <i class="bi bi-chat-left-text"></i> <span class="badge bg-success badge-number">3</span> </a>
+           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+              <li class="dropdown-header"> You have 3 new messages <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a></li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="message-item">
+                 <a href="#">
+                    <img src="../../../assets/admin/img/messages-1.jpg" alt="" class="rounded-circle">
+                    <div>
+                       <h4>Oussema</h4>
+                       <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                       <p>4 hrs. ago</p>
+                    </div>
+                 </a>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="message-item">
+                 <a href="#">
+                    <img src="../../../assets/admin/img/messages-2.jpg" alt="" class="rounded-circle">
+                    <div>
+                       <h4>Oussema</h4>
+                       <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                       <p>6 hrs. ago</p>
+                    </div>
+                 </a>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="message-item">
+                 <a href="#">
+                    <img src="../../../assets/admin/img/messages-3.jpg" alt="" class="rounded-circle">
+                    <div>
+                       <h4>Oussema</h4>
+                       <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                       <p>8 hrs. ago</p>
+                    </div>
+                 </a>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li class="dropdown-footer"> <a href="#">Show all messages</a></li>
+           </ul>
+        </li> -->
+        <li class="nav-item dropdown pe-3">
+           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown"> <img  src="{{imagepath}}{{data.img}}" alt="Profile" class="rounded-circle"> <span class="d-none d-md-block dropdown-toggle ps-2">{{data.firstname | titlecase}}</span> </a>
+           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+              <li class="dropdown-header">
+                 <h6>{{data.firstname | titlecase}}</h6>
+                 <span>Apprenant</span>
+              </li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li> <button class="dropdown-item d-flex align-items-center"> <a class="dropdown-item d-flex align-items-center" routerLink="/client/profile"> <i class="bi bi-person"></i> <span>Mon profil</span> </a> </button></li>
+              <li>
+                 <hr class="dropdown-divider">
+              </li>
+              <li> <button class="dropdown-item d-flex align-items-center"> <a class="dropdown-item d-flex align-items-center" (click)="logout()" > <i class="bi bi-box-arrow-right"></i> <span>Se Déconnecter</span> </a></button></li>
+           </ul>
+        </li>
+     </ul>
+  </nav>
+</header>
+
+<router-outlet></router-outlet>
+
+
+
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item"> <a class="nav-link collapsed" routerLink="/"> <i class="bi bi-house-door"></i>  <span>Accueil</span> </a></li>
+     <li class="nav-item"> <a  class="nav-link collapsed"  routerLink="/client/profile"> <i class="bi bi-person"></i> <span>Profil</span> </a></li>
+     <li class="nav-item"> <a  class="nav-link collapsed"  routerLink="/client/formation"> <i class="bi bi-layout-text-window-reverse"></i> <span>Ma participation</span> </a></li>
+     <li class="nav-item"> <a  class="nav-link collapsed"  routerLink="/client/ebook"> <i class="bi bi-journal-text"></i> <span>Mon achat</span> </a></li>
+
+
+     <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" routerLink="/admin/formation"> <i class="bi bi-layout-text-window-reverse"></i><span>Formations</span> </a>
+     </li>
+
+     <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" routerLink="/admin/ebook"> <i class="bi bi-journal-text"></i><span>E-books</span> </a>
+     </li> -->
+
+     <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#"> <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i> </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+           <li> <a routerLink="/icons-bootstrap"> <i class="bi bi-circle"></i><span>Bootstrap Icons</span> </a></li>
+           <li> <a routerLink="/icons-remix"> <i class="bi bi-circle"></i><span>Remix Icons</span> </a></li>
+           <li> <a routerLink="/icons-boxicons"> <i class="bi bi-circle"></i><span>Boxicons</span> </a></li>
+        </ul>
+     </li> -->
+     <!-- <li class="nav-heading">Pages</li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-profile"> <i class="bi bi-person"></i> <span>Profile</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-faq"> <i class="bi bi-question-circle"></i> <span>F.A.Q</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-contact"> <i class="bi bi-envelope"></i> <span>Contact</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-register"> <i class="bi bi-card-list"></i> <span>Register</span> </a></li> -->
+     <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-login"> <i class="bi bi-box-arrow-in-right"></i> <span>Log Out</span> </a></li> -->
+     <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-error404"> <i class="bi bi-dash-circle"></i> <span>Error 404</span> </a></li>
+     <li class="nav-item"> <a class="nav-link collapsed" routerLink="/pages-blank"> <i class="bi bi-file-earmark"></i> <span>Blank</span> </a></li> -->
+  </ul>
+</aside>
+
+
+
+<!-- <footer id="footer" class="footer">
+  <div class="copyright"> &copy;Copyright <strong><span>oussema mansouri</span></strong>. Tous droits réservés </div>
+</footer> -->
+<footer class="footer" id="footer" >
+  <div class="container py-3">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="text-muted">&copy; 2023 Connected. All Rights Reserved.</p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline text-md-end">
+          <li class="list-inline-item" ><a style="color: rgb(40, 40, 175);" href="#">Privacy Policy</a></li>
+          <li class="list-inline-item"><a style="color: rgb(40, 40, 175);" href="#">Terms of Use</a></li>
+          <li class="list-inline-item"><a style="color: rgb(40, 40, 175);" href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a (click)="scrollTop()" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
