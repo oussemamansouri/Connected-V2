@@ -1,0 +1,98 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Centres de formation</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin">Admin</a></li>
+           <li class="breadcrumb-item"><a >Centres de formation</a></li>
+           <li class="breadcrumb-item active"><a>Consulet la liste</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           <div class="card">
+              <div class="card-body">
+                 <h5 class="card-title">Tous les Centres</h5>
+                 <div class="table-responsive text-nowrap">
+                  <div class="form-group">
+                    <input type="text"  style="width: 300px;" class="form-control" placeholder="Recherche par nom de la centre" [(ngModel)]="searchTerm">
+                  </div>
+                  <br>
+                 <div class="alert alert-primary" *ngIf="filter()==''" > Aucun centre de formation ne s'est inscrit !</div>
+                 <table class="table table-hover" *ngIf="filter()!=''">
+                    <thead>
+                       <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Téléphone</th>
+                          <th scope="col">Nom de manager</th>
+                          <th scope="col">Prenom de manager</th>
+                          <th scope="col">Téléphone de manager</th>
+                          <th scope="col"></th>
+
+                       </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                       <tr *ngFor=" let item of filter(); index as i">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{item.name}}</td>
+                          <td>{{item.email}}</td>
+                          <td>{{item.tel}}</td>
+                          <td>{{item.nom_manager}}</td>
+                          <td>{{item.prenom_manager}}</td>
+                          <td>{{item.tel_manager}}</td>
+                          <td><div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Action
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li> <button class="dropdown-item" (click)="detIdcentre(item.id)" >Afficher détails</button></li>
+                              <li> <button (click)="sendid(item.id)"  class="dropdown-item"  >Mettre à jour</button></li>
+                              <li> <button (click)="selectId(item.id)"  class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#exampleModal"> <span style="color: red;">Supprimer</span> </button></li>
+
+                            </ul>
+                          </div></td>
+                       </tr>
+
+
+
+
+                    </tbody>
+                 </table>
+                </div>
+
+              </div>
+           </div>
+        </div>
+     </div>
+
+
+
+  </section>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Attention</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        Êtes-vous sûr de vouloir supprimer ce centre ? <br>
+il supprimera également toutes les données qui y sont liées !!
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" (click)="deletecentre()"  data-bs-dismiss="modal" class="btn btn-danger">Supprimer</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+</main>
+
+
+
