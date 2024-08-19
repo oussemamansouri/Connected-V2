@@ -1,0 +1,309 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Profil</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin">Centre</a></li>
+
+           <li class="breadcrumb-item active">Profil</li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section profile">
+     <div class="row">
+      <div class="col-xl-4">
+        <form  >
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+            <div class="zoom">
+            <label for="image" class="upload-image">
+              <img src="{{imagepath}}{{profile.img}}" alt="Profile" class="rounded-circle">
+              <span class="fa-stack fa-lg upload-icon">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fas fa-cloud-upload-alt fa-stack-1x fa-inverse"></i>
+              </span>
+            </label>
+            </div>
+            <h2>{{profile.name}}</h2>
+            <h3>{{profile.role | titlecase}} </h3>
+            <input type="file" id="image" class="visually-hidden" required accept="public/images/*" (change)="updateimage($event)"  >
+            <div class="social-links mt-2"> <a href={{profile.twitter}} class="twitter" *ngIf="profile.twitter"><i class="bi bi-twitter"></i></a> <a *ngIf="profile.facebook" href={{profile.facebook}} class="facebook"><i class="bi bi-facebook"></i></a> <a *ngIf="profile.instagram" href={{profile.instagram}} class="instagram"><i class="bi bi-instagram"></i></a> <a  *ngIf="profile.linkedin" href={{profile.linkedin}} class="linkedin"><i class="bi bi-linkedin"></i></a><a *ngIf="profile.site" href={{profile.site}} > <i class="fa-solid fa-globe"></i></a></div>
+          </div>
+        </div>
+      </form>
+      </div>
+
+
+
+        <div class="col-xl-8">
+           <div class="card">
+              <div class="card-body pt-3">
+                 <ul class="nav nav-tabs nav-tabs-bordered">
+                    <li class="nav-item"> <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Aperçu</button></li>
+                    <li class="nav-item"> <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Modifier profil</button></li>
+                    <!-- <li class="nav-item"> <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Paramètres</button></li> -->
+                    <li class="nav-item"> <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Changer mot de passe</button></li>
+                 </ul>
+                 <div class="tab-content pt-2">
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                       <h5 class="card-title">Les services</h5>
+                       <p class="small fst-italic">{{profile.services}}</p>
+                       <h5 class="card-title">Détails du profil</h5>
+
+                       <div class="row">
+                        <div class="col-lg-3 col-md-4 label">email</div>
+                        <div class="col-lg-9 col-md-8">{{profile.email }}</div>
+                     </div>
+
+                     <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Tel</div>
+                        <div class="col-lg-9 col-md-8">{{profile.tel}}</div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Adresse</div>
+                        <div class="col-lg-9 col-md-8">
+                          {{profile.localisation}}
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-3 col-md-4 label">Nom et Prenom de manager</div>
+                        <div class="col-lg-9 col-md-8">{{profile.nom_manager | titlecase}} {{profile.prenom_manager | titlecase}}</div>
+                     </div>
+                     <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Tel de manager</div>
+                      <div class="col-lg-9 col-md-8">{{profile.tel_manager}} </div>
+                   </div>
+
+                 <div class="row">
+                  <div class="col-lg-3 col-md-4 label">NIF</div>
+                  <div class="col-lg-9 col-md-8">{{profile.fiscale}}</div>
+               </div>
+               <div class="row" *ngIf="profile.license">
+                <div class="col-lg-3 col-md-4 label">license</div>
+                <div class="col-lg-9 col-md-8">{{profile.license | titlecase}}</div>
+             </div>
+                    </div>
+
+                    <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+                       <form  #f="ngForm" class="row g-3 needs-validation" (ngSubmit)="update(f)">
+
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Nom de la Centre</label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom01"   required minlength="2" maxlength="20"   pattern="[a-zA-Z\s]{2,20}" [ngClass]="{'is-invalid': name.invalid && name.touched, 'is-valid': name.valid && name.touched}"  name="name" #name="ngModel" ngModel [(ngModel)]="profile.name">
+                          <div class="invalid-feedback" *ngIf="name.touched && name.errors"  >
+                            <div *ngIf="name.errors?.['required']">le nom est requis!</div>
+                            <div *ngIf="name.errors?.['minlength']">le nom doit compter au moins 2 caractères !</div>
+                            <div *ngIf="name.errors?.['maxlength']">le nom ne doit pas dépasser 20 caractères !</div>
+                            <div *ngIf="name.errors?.['pattern']">le nom ne doit contenir que des caractères alphabétiques !</div>
+
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom02" class="form-label">Téléphone</label>
+                          <input (focus)="message()" type="tel" class="form-control" id="validationCustom02"    [ngClass]="{'is-invalid': tel.invalid && tel.touched, 'is-valid': tel.valid && tel.touched}" required minlength="5"  pattern="[0-9]{5,15}" maxlength="15"  name="tel" #tel="ngModel" ngModel [(ngModel)]="profile.tel">
+                          <div class="invalid-feedback" *ngIf="tel.touched &&tel.errors">
+                            <div *ngIf="tel.errors?.['required']">Veuillez entrer votre numéro de téléphone!</div>
+                            <div *ngIf="tel.errors?.['pattern']">Veuillez entrer un nombre entier valide!</div>
+                            <div *ngIf="tel.errors?.['minlength']">le Téléphone du Centre doit compter au moins 5 chiffres !</div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Nom de manager</label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom01"  required minlength="2" maxlength="15" pattern="[a-zA-Z]{2,15}" [ngClass]="{'is-invalid': nom_manager.invalid && nom_manager.touched, 'is-valid': nom_manager.valid && nom_manager.touched}" name="nom_manager" #nom_manager="ngModel" ngModel [(ngModel)]="profile.nom_manager">
+                          <div class="invalid-feedback" *ngIf="nom_manager.touched && nom_manager.errors">
+                            <div *ngIf="nom_manager.errors?.['required']">le nom du manager est requis!</div>
+                            <div *ngIf="nom_manager.errors?.['minlength']">le nom du manager doit compter au moins 2 caractères !</div>
+                            <div *ngIf="nom_manager.errors?.['maxlength']">le nom du manager ne doit pas dépasser 20 caractères !</div>
+                            <div *ngIf="nom_manager.errors?.['pattern']">le nom du manager ne doit contenir que des caractères alphabétiques !</div>
+
+                        </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Prenom de manager</label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom01"  required minlength="2" maxlength="15" pattern="[a-zA-Z]{2,15}" [ngClass]="{'is-invalid': prenom_manager.invalid && name.touched, 'is-valid': prenom_manager.valid && prenom_manager.touched}" name="prenom_manager" #prenom_manager="ngModel" ngModel [(ngModel)]="profile.prenom_manager">
+                          <div class="invalid-feedback" *ngIf="prenom_manager.touched && prenom_manager.errors">
+                            <div *ngIf="prenom_manager.errors?.['required']">le prenom du manager est requis!</div>
+                            <div *ngIf="prenom_manager.errors?.['minlength']">le prenom du manager doit compter au moins 2 caractères !</div>
+                            <div *ngIf="prenom_manager.errors?.['maxlength']">le prenom du manager ne doit pas dépasser 20 caractères !</div>
+                            <div *ngIf="prenom_manager.errors?.['pattern']">le prenom du manager ne doit contenir que des caractères alphabétiques !</div>
+
+                        </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Localisation</label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom03"  [ngClass]="{'is-invalid': localisation.invalid && localisation.touched, 'is-valid': localisation.valid && localisation.touched}" minlength="4" required  name="localisation" #localisation="ngModel" ngModel [(ngModel)]="profile.localisation">
+                          <div class="invalid-feedback" *ngIf="localisation.touched && localisation.errors">
+                            <div *ngIf="localisation.errors?.['minlength']">Votre adresse doit compter au moins 4 caractères !</div>
+                            <div *ngIf="localisation.errors?.['required']">Veuillez entrer votre adresse!</div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom01" class="form-label">Téléphone de manager</label>
+                          <input (focus)="message()" type="tel" class="form-control" id="validationCustom01"    [ngClass]="{'is-invalid': tel_manager.invalid && tel_manager.touched, 'is-valid': tel_manager.valid && tel_manager.touched}"  required minlength="5" pattern="[0-9]{5,15}" maxlength="15" name="tel_manager" #tel_manager="ngModel" ngModel [(ngModel)]="profile.tel_manager">
+                          <div class="invalid-feedback" *ngIf="tel_manager.touched &&tel_manager.errors">
+                            <div *ngIf="tel_manager.errors?.['required']">Veuillez entrer votre numéro de téléphone!</div>
+                            <div *ngIf="tel_manager.errors?.['minlength']">le Téléphone du manager doit compter au moins 5 chiffres !</div>
+                            <div *ngIf="tel_manager.errors?.['pattern']">Veuillez entrer un nombre entier valide!</div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Numéro fiscal de référence </label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom03"    [ngClass]="{'is-invalid': fiscale.invalid && fiscale.touched, 'is-valid': fiscale.valid && fiscale.touched}"
+                          required pattern="[0-9]{8}" required name="fiscale" #fiscale="ngModel" ngModel [(ngModel)]="profile.fiscale">
+                          <div class="invalid-feedback" *ngIf="fiscale.touched && fiscale.errors">
+                            <div *ngIf="fiscale.errors?.['required']">Veuillez entrer votre NIF!</div>
+                            <div *ngIf="fiscale.errors?.['pattern']">Le NIF doit être composé de 8 chiffres!</div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Services </label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom03"       [ngClass]="{'is-invalid': services.invalid && services.touched, 'is-valid': services.valid && services.touched}" required name="services" #services="ngModel" ngModel [(ngModel)]="profile.services">
+                          <div class="invalid-feedback" *ngIf="services.touched && services.errors">
+                            <div *ngIf="services.errors?.['required']">Veuillez entrer votre services!</div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">license </label>
+                          <input (focus)="message()" type="text" class="form-control" id="validationCustom03"  name="license" #license="ngModel" ngModel [(ngModel)]="profile.license">
+
+                        </div>
+
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Site Web</label>
+                          <input (focus)="message()" type="url" class="form-control" id="validationCustom03"  name="site" #site="ngModel" ngModel [(ngModel)]="profile.site">
+
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">LinkedIn</label>
+                          <input (focus)="message()" type="url" class="form-control" id="validationCustom03" required name="linkedin" #linkedin="ngModel" ngModel [(ngModel)]="profile.linkedin">
+
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Instagram</label>
+                          <input (focus)="message()" type="url" class="form-control" id="validationCustom03"  name="instagram" #instagram="ngModel" ngModel [(ngModel)]="profile.instagram">
+
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Facebook</label>
+                          <input (focus)="message()" type="url" class="form-control" id="validationCustom03"  name="facebook" #facebook="ngModel" ngModel [(ngModel)]="profile.facebook">
+
+                        </div>
+                        <div class="col-md-6">
+                          <label for="validationCustom03" class="form-label">Twitter</label>
+                          <input (focus)="message()" type="url" class="form-control" id="validationCustom03"  name="twitter" #twitter="ngModel" ngModel [(ngModel)]="profile.twitter">
+
+                        </div>
+
+                          <div class="text-center"> <button  [disabled]="f.invalid" type="submit" class="btn btn-primary">Enregistrer</button></div>
+                          <br>
+                          <div class="alert alert-success" role="alert" *ngIf="secmessage">
+                            {{secmessage}}
+                      </div>
+                          <div class="alert alert-danger" role="alert" *ngIf="errmessage">
+                                {{errmessage}}
+                          </div>
+                       </form>
+                    </div>
+                    <div class="tab-pane fade pt-3" id="profile-settings">
+                       <form>
+                          <div class="row mb-3">
+                             <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Notifications par e-mail</label>
+                             <div class="col-md-8 col-lg-9">
+                                <div class="form-check"> <input class="form-check-input" type="checkbox" id="changesMade" checked> <label class="form-check-label" for="changesMade"> modifications apportées à votre compte </label></div>
+                                <div class="form-check"> <input class="form-check-input" type="checkbox" id="newProducts" checked> <label class="form-check-label" for="newProducts"> Information sur les nouveaux produits et services </label></div>
+                                <div class="form-check"> <input class="form-check-input" type="checkbox" id="proOffers"> <label class="form-check-label" for="proOffers"> Offres de marketing et de promotion </label></div>
+                                <div class="form-check"> <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled> <label class="form-check-label" for="securityNotify"> Alertes de sécurité </label></div>
+                             </div>
+                          </div>
+                          <div class="text-center"> <button type="submit" class="btn btn-primary">Enregistrer</button></div>
+                       </form>
+                    </div>
+
+
+                    <div class="tab-pane fade pt-3" id="profile-change-password">
+                       <form  #f2="ngForm" (ngSubmit)="updatepassword(f2)">
+                        <div class="row mb-3">
+                          <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mot de passe actuel</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input (focus)="message()" name="oldPassword" [(ngModel)]="old" #oldPassword="ngModel" [ngClass]="{'is-invalid':oldPassword.invalid && oldPassword.touched}" ngModel required type="password" class="form-control">
+                            <div class="invalid-feedback" *ngIf="oldPassword.touched && !old">
+                              <div>Veuillez entrer votre mot de passe actuel !</div>
+                            </div>
+                          </div>
+                        </div>
+
+
+
+
+
+                          <div class="row mb-3">
+                            <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Nouveau mot de passe</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="newPassword" (focus)="message()"
+                                     [(ngModel)]="new"
+                                     #newPassword="ngModel"
+                                     [ngClass]="{'is-invalid': newPassword.invalid && newPassword.touched, 'is-valid': newPassword.valid && newPassword.touched}"
+                                     required
+                                     minlength="8"
+                                     type="password"
+                                     class="form-control"
+                                     pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+
+                                     >
+                              <div class="invalid-feedback" *ngIf="newPassword.touched && newPassword.invalid">
+                                <div *ngIf="newPassword.errors?.['required']">Veuillez entrer votre nouveau mot de passe !</div>
+                                <div *ngIf="newPassword.errors?.['minlength']">Votre mot de passe doit compter au moins 8 caractères !</div>
+                                <div *ngIf="newPassword.errors?.['pattern']">Votre mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial !</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mb-3">
+                            <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Répéter le nouveau mot de passe</label>
+                            <div class="col-md-8 col-lg-9">
+                              <input name="repeatPassword" (focus)="message()"
+                                     [(ngModel)]="repe"
+                                     #repeatPassword="ngModel"
+                                     [ngClass]="{'is-invalid': repeatPassword.invalid && repeatPassword.touched, 'is-valid': newPassword.valid && newPassword.touched && !notthesame() }"
+                                     required
+                                     minlength="8"
+                                     type="password"
+                                     class="form-control"
+                                     pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+
+
+                                     >
+                              <div class="invalid-feedback" *ngIf="repeatPassword.touched && repeatPassword.invalid">
+                                <div *ngIf="repeatPassword.errors?.['required']">Veuillez entrer votre nouveau mot de passe !</div>
+                                <div *ngIf="repeatPassword.errors?.['minlength']">Votre mot de passe doit compter au moins 8 caractères !</div>
+                                <div *ngIf="repeatPassword.errors?.['pattern']">Votre mot de passe doit contenir au moins une lettre, un chiffre et un caractère spécial !</div>
+                              </div>
+                              <div class="invalid-feedback" *ngIf=" repeatPassword.touched && notthesame()">Les deux mots de passe ne correspondent pas !</div>
+                            </div>
+                          </div>
+
+
+
+                          <div class="text-center"> <button   [disabled]="f2.invalid" type="submit" class="btn btn-primary">Enregistrer</button></div>
+                          <br>
+                          <div class="alert alert-success" role="alert" *ngIf="secmessagepass">
+                            {{secmessagepass}}
+                      </div>
+                          <div class="alert alert-danger" role="alert" *ngIf="errmessagepass">
+                                {{errmessagepass}}
+                          </div>
+                       </form>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </section>
+</main>
