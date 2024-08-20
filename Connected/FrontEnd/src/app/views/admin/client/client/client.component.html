@@ -1,0 +1,93 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Apprenant</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin">Admin</a></li>
+           <li class="breadcrumb-item"><a>Apprenants</a></li>
+           <li class="breadcrumb-item active"><a>Consulet la liste</a></li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+     <div class="row">
+        <div class="col-lg-12">
+           <div class="card">
+              <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                 <h5 class="card-title">Tous les apprenants </h5>
+                 <div class="form-group">
+                  <input type="text"  style="width: 300px;" class="form-control" placeholder="Recherche par nom ou prenom" [(ngModel)]="searchTerm">
+                </div>
+                <br>
+                 <div class="alert alert-primary" *ngIf="filter()==''" > Aucun client ne s'est inscrit !</div>
+                 <table class="table table-hover" *ngIf="filter()!=''">
+                    <thead>
+                       <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Prenom</th>
+                          <th scope="col">Téléphone</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Adresse</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       <tr  *ngFor="let item of filter();index as i">
+                          <th scope="row">{{i+1}}</th>
+                          <td>{{item.firstname | titlecase}}</td>
+                          <td>{{item.lastname | titlecase}}</td>
+                          <td>{{item.tel }}</td>
+                          <td>{{item.email }}</td>
+                          <td>{{item.address }}</td>
+
+                          <td><div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Action
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li> <button class="dropdown-item"   (click)="sendId(item.id)">Afficher détails</button></li>
+                              <li> <button class="dropdown-item"   (click)="sendclientId(item.id)">Mettre à jour </button></li>
+                              <li>  <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getclientid(item.id)"><span style="color: red;">Supprimer</span></button>
+                              </li>
+                            </ul>
+                          </div></td>
+                       </tr>
+
+
+                    </tbody>
+                 </table>
+                 </div>
+
+
+              </div>
+           </div>
+        </div>
+     </div>
+
+  </section>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Warning</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        Êtes-vous sûr de vouloir supprimer ce apprenant ? <br>
+                                        il supprimera également toutes les données qui y sont liées !!
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteclient()">Supprimer</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+</main>
+
+
+
+
