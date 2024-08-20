@@ -1,0 +1,150 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Ebooks</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin">Admin</a></li>
+           <li class="breadcrumb-item">E-books</li>
+           <li class="breadcrumb-item active">Consulter la liste</li>
+        </ol>
+
+     </nav>
+     <div class="form-group">
+      <input type="text"  style="width: 300px;" class="form-control" placeholder="Recherche par titre" [(ngModel)]="searchTerm">
+    </div>
+  </div>
+
+  <section class="section profile">
+
+    <div class="alert alert-primary d-flex align-items-center" role="alert" *ngIf="filter()=='' ">
+      Il n’y a pas de livres
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+
+
+
+      <div class="col" *ngFor="let item of filter()">
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-light" (click)="getbookId(item.id)">
+
+          <div class="card h-100 shadow-lg" >
+            <div class="zoom">
+              <img src="{{imagepath}}{{item.img}}" class="card-img-top" alt="..." style="height: 250px; width: 250px; object-fit: cover;">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{item.titre}}</h5>
+              <!-- <p class="card-text" style="color: black;"> {{item.discription}}</p> -->
+            </div>
+          </div>
+        </button>
+
+      </div>
+
+      </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">{{ebook.titre | titlecase}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body ">
+
+          <div class="col-md-2 col-lg-2" class="row mb-3">
+            <img src="{{imagepath}}{{ebook.img}}" alt="Profile">
+         </div>
+
+         <div class="row">
+          <div class="col-lg-3 col-md-4 label" style="color:#012970;" >Acheteurs : </div>
+          <div class="col-lg-9 col-md-8">{{achat.count | number}}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+       </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-4 label" style="color:#012970;" >Description :</div>
+            <div class="col-lg-9 col-md-8" style="word-wrap: break-word">{{ebook.discription | titlecase}}</div>
+         </div>
+         <div class="row">
+          <div class="col-lg-3 col-md-4 label"style="color:#012970; " >Auteur :</div>
+          <div class="col-lg-9 col-md-8">{{ebook.auteur | titlecase }}</div>
+       </div>
+       <div class="row">
+        <div class="col-lg-3 col-md-4 label"style="color:#012970;  "  >Format :</div>
+        <div class="col-lg-9 col-md-8">{{ebook.format }}</div>
+     </div>
+     <div class="row">
+      <div class="col-lg-3 col-md-4 label"style="color:#012970;  "  > Pages :</div>
+      <div class="col-lg-9 col-md-8">{{ebook.nb_pages | number}}</div>
+   </div>
+   <div class="row">
+    <div class="col-lg-3 col-md-4 label"style="color:#012970;  "  >Prix :</div>
+    <div class="col-lg-9 col-md-8">{{ebook.prix | number}} DT</div>
+  </div>
+  <div class="row" *ngIf="ebook.promotion">
+    <div class="col-lg-3 col-md-4 label" style="color:#012970;  " >Promotion :</div>
+    <div class="col-lg-9 col-md-8">{{ebook.promotion | number }} %</div>
+  </div>
+  <div class="row" *ngIf="ebook.categorie!='Autre'">
+    <div class="col-lg-3 col-md-4 label" style="color:#012970;  " >Domaine :</div>
+    <div class="col-lg-9 col-md-8">{{ebook.categorie | titlecase }} </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-4 label" style="color:#012970;  " >Créé à :</div>
+    <div class="col-lg-9 col-md-8">{{ebook.createdAt | date }}</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3 col-md-4 label" style="color:#012970;  " >Mis à jour à :</div>
+    <div class="col-lg-9 col-md-8">{{ebook.updatedAt | date }} </div>
+  </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="downloadebook()" class="btn btn-outline-dark btn-sm" title="Download Ebook">
+            <span class="material-symbols-outlined">
+              download
+            </span>
+          </button>
+
+            <button *ngIf="achat.count!=0" type="button" (click)="sendebookid()"  data-bs-dismiss="modal" class="btn btn-outline-dark btn-sm " title="Voir les acheteurs"> <span class="material-symbols-outlined">
+              group
+              </span></button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="sendid()">Mettre à jour </button>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#exampleModal2">Supprimer</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Attention</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+
+        Êtes-vous sûr de vouloir supprimer ce ebook ? <br>
+        il supprimera également toutes les données qui y sont liées !!
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteebook()">Supprimer</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+     </div>
+</div>
+
+
+  </section>
+</main>
+
+
