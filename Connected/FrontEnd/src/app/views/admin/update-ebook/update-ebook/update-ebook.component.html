@@ -1,0 +1,226 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Mettre à Jour un e-book</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin">Admin</a></li>
+           <li class="breadcrumb-item"><a routerLink="/admin/ebook"> E-books </a></li>
+           <li class="breadcrumb-item active">Mettre à Jour un e-book</li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+
+
+    <form class="row g-3 needs-validation" novalidate  #f="ngForm" (ngSubmit)="updateebook(f)">
+
+      <div class="col-md-3">
+        <label for="validationCustom01" class="form-label">Titre</label>
+        <input type="text" class="form-control" id="validationCustom01"  name="titre" #titre="ngModel" ngModel   required minlength="2" maxlength="30" pattern="^[a-zA-Z0-9\s\-_,.()'’‘’]+$"  [ngClass]="{'is-invalid': titre.invalid && titre.touched, 'is-valid': titre.valid && titre.touched}" [(ngModel)]="ebook.titre">
+        <div class="invalid-feedback" *ngIf="titre.touched && titre.errors">
+          <div *ngIf="titre.errors?.['required']">Le titre est requis!</div>
+          <div *ngIf="titre.errors?.['minlength']">Le titre doit compter au moins 2 caractères !</div>
+          <div *ngIf="titre.errors?.['maxlength']">Le titre ne doit pas dépasser 30 caractères !</div>
+          <div *ngIf="titre.errors?.['pattern']">Le titre ne doit contenir que des caractères alphanumériques, espaces, tirets, underscores, virgules, points, apostrophes et parenthèses !</div>
+      </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="validationCustom01" class="form-label">Nom de l’auteur</label>
+        <input type="text" class="form-control" id="validationCustom01" name="auteur" #auteur="ngModel" ngModel required minlength="2" maxlength="20" pattern="^[a-zA-Z\-\s]+$" [ngClass]="{'is-invalid': auteur.invalid && auteur.touched, 'is-valid': auteur.valid && auteur.touched}" [(ngModel)]="ebook.auteur">
+        <div class="invalid-feedback" *ngIf="auteur.touched && auteur.errors">
+          <div *ngIf="auteur.errors?.['required']">Le nom de l'auteur est requis!</div>
+          <div *ngIf="auteur.errors?.['minlength']">Le nom de l'auteur doit compter au moins 2 caractères !</div>
+          <div *ngIf="auteur.errors?.['maxlength']">Le nom de l'auteur ne doit pas dépasser 20 caractères !</div>
+          <div *ngIf="auteur.errors?.['pattern']">Le nom de l'auteur ne doit contenir que des caractères alphabétiques, des espaces et des tirets !</div>
+        </div>
+      </div>
+
+       <!-- categories select form -->
+ <div class="col-md-2">
+  <label for="validationCustom01" class="form-label">Choisir une domaine</label>
+  <select class="form-select" name="categorie" #categorie="ngModel" ngModel required [ngClass]="{'is-invalid': categorie.invalid && categorie.touched, 'is-valid': categorie.valid && categorie.touched}" [(ngModel)]="ebook.categorie">
+    <option value=""disabled selected hidden>Categories</option>
+    <optgroup label="Programmes académiques">
+      <option value="programmes de premier-cycle">Programmes de premier cycle</option>
+      <option value="programmes de cycle-superieur">Programmes de cycle supérieur</option>
+      <option value="programmes de diplome professionnel">Programmes de diplôme professionnel</option>
+      <option value="certificats">Certificats</option>
+      <option value="diplomes">Diplômes</option>
+      <option value="autres programmes academiques">Autre Programmes académiques</option>
+    </optgroup>
+    <optgroup label="Développement professionnel">
+      <option value="gestion et leadership">Gestion et leadership</option>
+      <option value="vente et marketing">Vente et marketing</option>
+      <option value="ressources humaines">Ressources humaines</option>
+      <option value="finance et comptabilite">Finance et comptabilité</option>
+      <option value="gestion de projet">Gestion de projet</option>
+      <option value="technologie de l'information">Technologie de l'information</option>
+      <option value="sante et securite">Santé et sécurité</option>
+      <option value="legal et conformite">Légal et conformité</option>
+      <option value="autre developpement professionnel">Autre Développement professionnel</option>
+    </optgroup>
+    <optgroup label="Développement personnel">
+      <option value="gestion du temps">Gestion du temps</option>
+      <option value="productivite">Productivité</option>
+      <option value="amelioration de soi">Amélioration de soi</option>
+      <option value="pleine conscience et meditation">Pleine conscience et méditation</option>
+      <option value="reduction du stress">Réduction du stress</option>
+      <option value="sante et bien etre">Santé et bien-être</option>
+      <option value="arts et artisanat creatifs">Arts et artisanat créatifs</option>
+      <option value="cuisine et arts culinaires">Cuisine et arts culinaires</option>
+      <option value="autre developpement personnel">Autre Développement personnel</option>
+    </optgroup>
+    <optgroup label="Formation professionnelle">
+      <option value="apprentissages">Apprentissages</option>
+      <option value="certificats professionnels">Certificats professionnels</option>
+      <option value="programmes d'ecole de metier">Programmes d'école de métier</option>
+      <option value="metiers specialises">Métiers spécialisés</option>
+      <option value="automobile">Automobile</option>
+      <option value="construction">Construction</option>
+      <option value="electricite">Électricité</option>
+      <option value="plomberie">Plomberie</option>
+      <option value="Soudage">Soudage</option>
+      <option value="Autre Formation professionnelle">Autre Formation professionnelle</option>
+    </optgroup>
+    <optgroup label="Apprentissage des langues">
+      <option value="Cours de langue">Cours de langue</option>
+      <option value="Programmes d'immersion">Programmes d'immersion</option>
+      <option value="Programmes d'échange linguistique">Programmes d'échange linguistique</option>
+      <option value="Programmes de certification de langues">Programmes de certification de langue</option>
+      <option value="Préparation aux examens">Préparation aux examens</option>
+      <option value="Préparation aux examens standardisés">Préparation aux examens standardisés</option>
+      <option value="Examens de certification professionnelle">Examens de certification professionnelle</option>
+      <option value="Autre pprentissage des langues">Autre pprentissage des langues</option>
+    </optgroup>
+    <optgroup label="Éducation continue ">
+      <option value="Ateliers et séminaires">Ateliers et séminaires</option>
+      <option value="Conférences">Conférences</option>
+      <option value="Cours courts">Cours courts</option>
+      <option value="Apprentissage en ligne">Apprentissage en ligne</option>
+      <option value="Autre Éducation continue">Autre Éducation continue</option>
+    </optgroup>
+       <optgroup label="Formation spécifique à l'industrie ">
+      <option value="Soins de santé">Soins de santé</option>
+      <option value="Hôtellerie et tourisme">Hôtellerie et tourisme</option>
+      <option value="Vente au détail et vente">Vente au détail et vente</option>
+      <option value="Fabrication">Fabrication</option>
+      <option value="Transport et logistique">Transport et logistique</option>
+      <option value="Énergie et services publics">Énergie et services publics</option>
+      <option value="Agriculture et agriculture">Agriculture et agriculture</option>
+      <option value="Autre spécifique à l'industrie">Autre spécifique à l'industrie</option>
+    </optgroup>
+    <optgroup label="Formation technologique  ">
+      <option value="Codage et programmation">Codage et programmation</option>
+      <option value="Cybersécurité">Cybersécurité</option>
+      <option value="Cloud computing">Cloud computing</option>
+      <option value="Science des données">Science des données</option>
+      <option value="Intelligence artificielle et apprentissage automatique">Intelligence artificielle et apprentissage automatique</option>
+      <option value="Développement web">Développement web</option>
+      <option value="Autre Formation technologique">Autre Formation technologique</option>
+    </optgroup>
+    <optgroup label="Arts et humanités  ">
+      <option value="Musique">Musique</option>
+      <option value="Théâtre et performance">Théâtre et performance</option>
+      <option value="Film et vidéo">Film et vidéo</option>
+      <option value="Écriture et littérature">Écriture et littérature</option>
+      <option value="Philosophie">Philosophie</option>
+      <option value="Histoire">Histoire</option>
+      <option value="Religion">Religion</option>
+      <option value="Autre Arts et humanités">Autre Arts et humanités</option>
+    </optgroup>
+    <option value="Autre" >Autre</option>
+  </select>
+  <div class="invalid-feedback" *ngIf="categorie.touched && categorie.errors">
+    <div *ngIf="categorie.errors?.['required']">Le domaine requise!</div>
+  </div>
+</div>
+
+      <div class="col-md-2">
+        <label for="validationCustom02" class="form-label">Format</label>
+        <select class="form-select" id="validationCustom02" name="format" #format="ngModel" ngModel required [ngClass]="{'is-invalid': format.invalid && format.touched, 'is-valid': format.valid && format.touched}" [(ngModel)]="ebook.format">
+          <option value="" disabled selected hidden>Choisir...</option>
+          <option value="pdf">PDF</option>
+          <option value="doc">DOC</option>
+          <option value="docx">DOCX</option>
+          <option value="ppt">PPT</option>
+          <option value="pptx">PPTX</option>
+          <option value="epub">EPUB</option>
+          <option value="mobi">MOBI</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="format.touched && format.errors">
+          <div *ngIf="format.errors?.['required']">Le format est requis!</div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label for="validationCustom03" class="form-label">Prix</label>
+        <input type="number" class="form-control" id="validationCustom03" name="prix" #prix="ngModel" ngModel
+          required pattern="^[0-9]+([,.][0-9]{1,3})?$" minlength="1" maxlength="10"
+          [ngClass]="{'is-invalid': prix.invalid && prix.touched, 'is-valid': prix.valid && prix.touched}" [(ngModel)]="ebook.prix">
+        <div class="invalid-feedback" *ngIf="prix.touched && prix.errors">
+          <div *ngIf="prix.errors?.['required']">Le prix est requis!</div>
+          <div *ngIf="prix.errors?.['pattern']">Le prix doit être un nombre positif avec 3 décimales maximum !</div>
+          <div *ngIf="prix.errors?.['minlength']">Le prix doit comporter au moins 1 chiffre!</div>
+          <div *ngIf="prix.errors?.['maxlength']">Le prix doit comporter au maximum 10 chiffres!</div>
+        </div>
+      </div>
+
+      <div class="col-md-1">
+        <label for="validationCustom03" class="form-label">Promotion</label>
+        <input type="number" class="form-control" id="validationCustom03" name="promotion" #promotion="ngModel" ngModel
+          required pattern="^(0?[0-9]|[1-9][0-9]|100)$" minlength="1" maxlength="3"
+          [ngClass]="{'is-invalid': promotion.invalid && promotion.touched, 'is-valid': promotion.valid && promotion.touched}" [(ngModel)]="ebook.promotion">
+        <div class="invalid-feedback" *ngIf="promotion.touched && promotion.errors">
+          <div *ngIf="promotion.errors?.['required']">La promotion est requise!</div>
+          <div *ngIf="promotion.errors?.['pattern']">La promotion doit être un entier positif inférieur ou égal à 100 !</div>
+          <div *ngIf="promotion.errors?.['minlength']">La promotion doit comporter au moins 1 chiffre!</div>
+          <div *ngIf="promotion.errors?.['maxlength']">La promotion doit comporter au maximum 3 chiffres!</div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label for="validationCustom03" class="form-label">Nombre de pages</label>
+        <input type="number" class="form-control" id="validationCustom03" name="nb_pages" #nb_pages="ngModel" ngModel required [ngClass]="{'is-invalid': nb_pages.invalid && nb_pages.touched, 'is-valid': nb_pages.valid && nb_pages.touched}" [(ngModel)]="ebook.nb_pages">
+        <div class="invalid-feedback" *ngIf="nb_pages.touched && nb_pages.errors">
+          <div *ngIf="nb_pages.errors?.['required']">Le nombre de pages est requis!</div>
+          <div *ngIf="nb_pages.errors?.['positive']">Le nombre de pages doit être un nombre positif!</div>
+          <div *ngIf="nb_pages.errors?.['integer']">Le nombre de pages doit être un nombre entier!</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">Description</label>
+        <textarea class="form-control" id="validationCustom01" name="discription" #discription="ngModel" ngModel required minlength="30" maxlength="300" pattern="^[a-zA-Z0-9\s\-_,.()'’‘’]+$" [ngClass]="{'is-invalid': discription.invalid && discription.touched, 'is-valid': discription.valid && discription.touched}" [(ngModel)]="ebook.discription"></textarea>
+        <div class="invalid-feedback" *ngIf="discription.touched && discription.errors">
+          <div *ngIf="discription.errors?.['required']">La description est requis!</div>
+          <div *ngIf="discription.errors?.['minlength']">La description doit compter au moins 30 caractères !</div>
+          <div *ngIf="discription.errors?.['maxlength']">La description ne doit pas dépasser 300 caractères !</div>
+          <div *ngIf="discription.errors?.['pattern']">La description ne doit contenir que des caractères alphanumériques, espaces, tirets, underscores, virgules, points, apostrophes et parenthèses !</div>
+        </div>
+      </div>
+
+      <span class="align-text-bottom" style="color: rgb(56, 68, 201);">Les champs suivants ne sont pas obligatoires :</span>
+
+
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">E-book </label>
+        <input type="file" id="image" class="form-control" accept="public/images/*" (change)="selectEbook($event)" ngModel >
+    </div>
+
+
+      <div class="col-12">
+
+      <div class="col-5">
+        <button class="btn btn-primary" [disabled]="f.invalid" type="submit">Mettre à Jour</button>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="alert alert-danger" *ngIf="errmessage">{{errmessage}}</div></div>
+
+
+    </form>
+
+
+  </section>
+</main>
