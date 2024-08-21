@@ -1,0 +1,112 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>Mettre à Jour un Apprenant</h1>
+     <nav>
+        <ol class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin">Admin</a></li>
+           <li class="breadcrumb-item">Apprenant</li>
+           <li class="breadcrumb-item active">Mettre à Jour un Apprenant</li>
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+
+
+    <form class="row g-3 needs-validation" novalidate  #f="ngForm" (ngSubmit)="updateclient(f)">
+      <div class="col-md-3">
+        <label for="validationCustom01" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="validationCustom01"   required minlength="2" maxlength="15" pattern="[a-zA-Z]{2,15}" [ngClass]="{'is-invalid': firstname.invalid && firstname.touched, 'is-valid': firstname.valid && firstname.touched}" name="firstname" #firstname="ngModel" ngModel  [(ngModel)]="client.firstname">
+        <div class="invalid-feedback" *ngIf="firstname.touched && firstname.errors">
+          <div *ngIf="firstname.errors?.['required']">Votre nom est requis!</div>
+          <div *ngIf="firstname.errors?.['minlength']">Votre nom doit compter au moins 2 caractères !</div>
+          <div *ngIf="firstname.errors?.['maxlength']">Votre nom ne doit pas dépasser 15 caractères !</div>
+          <div *ngIf="firstname.errors?.['pattern']">Votre nom ne doit contenir que des caractères alphabétiques !</div>
+      </div>
+      </div>
+      <div class="col-md-3">
+        <label for="validationCustom01" class="form-label">Prenom</label>
+        <input type="text" class="form-control" id="validationCustom01"  required minlength="2" maxlength="15" pattern="[a-zA-Z]{2,15}"  [ngClass]="{'is-invalid': lastname.invalid && lastname.touched, 'is-valid': lastname.valid && lastname.touched}" name="lastname" #lastname="ngModel" ngModel [(ngModel)]="client.lastname">
+        <div class="invalid-feedback" *ngIf="lastname.touched && lastname.errors">
+          <div *ngIf="lastname.errors?.['required']">Votre prenom est requis!</div>
+          <div *ngIf="lastname.errors?.['minlength']">Votre prenom doit compter au moins 2 caractères !</div>
+          <div *ngIf="lastname.errors?.['maxlength']">Votre prenom ne doit pas dépasser 15 caractères !</div>
+          <div *ngIf="lastname.errors?.['pattern']">Votre prenom ne doit contenir que des caractères alphabétiques !</div>
+
+      </div>
+      </div>
+
+      <div class="col-md-3">
+        <label for="validationCustom02" class="form-label">Téléphone</label>
+        <input type="number" class="form-control" id="validationCustom02"  [ngClass]="{'is-invalid': tel.invalid && tel.touched, 'is-valid': tel.valid && tel.touched}" required name="tel" #tel="ngModel" ngModel [(ngModel)]="client.tel">
+        <div class="invalid-feedback" *ngIf="tel.touched &&tel.errors">
+          <div *ngIf="tel.errors?.['required']">Veuillez entrer votre numéro de téléphone!</div>
+          <div *ngIf="tel.errors?.['integer']">Veuillez entrer un nombre entier valide!</div>
+          <div *ngIf="tel.errors?.['minlength']">le Téléphone doit compter au moins 8 chiffres !</div>
+        </div>
+      </div>
+
+
+      <div class="col-md-3">
+        <label for="yourDOB" class="form-label">Date de naissance</label>
+        <input type="date" name="dob" #dob="ngModel" ngModel class="form-control" id="yourDOB" required
+        [max]="maxDate()" [ngClass]="{'is-invalid': dob.invalid && dob.touched, 'is-valid': dob.valid && dob.touched}"  [(ngModel)]="client.dob">
+ <div class="invalid-feedback" *ngIf="dob.touched && dob.errors">
+     <div *ngIf="dob.errors?.['required']">Votre date de naissance est requise!</div>
+     <div *ngIf="dob.errors?.['futureDate']">Votre date de naissance ne peut pas être dans le futur!</div>
+ </div>
+
+    </div>
+
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">Adresse</label>
+        <input type="text" class="form-control" id="validationCustom03"  [ngClass]="{'is-invalid': address.invalid && address.touched, 'is-valid': address.valid && address.touched}" minlength="4" required  name="address" #address="ngModel" ngModel [(ngModel)]="client.address">
+        <div class="invalid-feedback" *ngIf="address.touched && address.errors">
+          <div *ngIf="address.errors?.['minlength']">Votre adresse doit compter au moins 4 caractères !</div>
+          <div *ngIf="address.errors?.['required']">Veuillez entrer votre adresse!</div>
+        </div>
+      </div>
+      <span class="align-text-bottom" style="color: rgb(56, 68, 201);">Les champs suivants ne sont pas obligatoires :</span>
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">Portfolio</label>
+        <input type="text" class="form-control" id="validationCustom03"  name="portfolio" #portfolio="ngModel" ngModel [(ngModel)]="client.portfolio">
+
+      </div>
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">LinkedIn</label>
+        <input type="text" class="form-control" id="validationCustom03"  name="linkedin" #linkedin="ngModel" ngModel [(ngModel)]="client.linkedin">
+
+      </div>
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">Instagram</label>
+        <input type="text" class="form-control" id="validationCustom03"  name="instagram" #instagram="ngModel" ngModel [(ngModel)]="client.instagram">
+      </div>
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">Facebook</label>
+        <input type="text" class="form-control" id="validationCustom03"  name="facebook" #facebook="ngModel" ngModel [(ngModel)]="client.facebook">
+
+      </div>
+      <div class="col-md-4">
+        <label for="validationCustom03" class="form-label">Twitter</label>
+        <input type="text" class="form-control" id="validationCustom03"  name="twitter" #twitter="ngModel" ngModel [(ngModel)]="client.twitter">
+
+      </div>
+
+      <div class="col-12">
+
+      <div class="col-5">
+        <button class="btn btn-primary" [disabled]="f.invalid" type="submit">Mettre à Jour</button>
+      </div>
+    </div>
+<div class="col-sm-5">
+    <div class="alert alert-danger"  *ngIf="errmessage">
+{{errmessage}}
+    </div>
+  </div>
+
+
+    </form>
+
+
+  </section>
+</main>
+
