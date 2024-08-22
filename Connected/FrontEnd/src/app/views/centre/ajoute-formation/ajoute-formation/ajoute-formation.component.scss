@@ -1,0 +1,56 @@
+
+.invalid-feedback {
+  display: block;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+///////////
+///
+///
+.dropdown-submenu {
+  position: relative;
+  cursor: pointer;
+  }
+
+  .dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+  }
+
+  @media (min-width: 992px) {
+  /* Desktop devices */
+  .dropdown-submenu:focus > .dropdown-menu {
+  display: block;
+  }
+
+  .dropdown-submenu:focus > a:after {
+  border-left-color: #fff;
+  }
+
+  /* Add this style to remove the focus outline on click */
+  .dropdown-submenu:focus {
+  outline: none;
+  }
+  }
+
+
+
+  @media (max-width: 991px) {
+  /* Mobile and tablet devices */
+  .dropdown-submenu > a:after {
+  display: none;
+  }
+
+  .dropdown-submenu:focus-within > .dropdown-menu {
+  display: block;
+  }
+
+  /* Add this style to remove the focus outline on click */
+  .dropdown-submenu:focus-within {
+  outline: none;
+  }
+  }
