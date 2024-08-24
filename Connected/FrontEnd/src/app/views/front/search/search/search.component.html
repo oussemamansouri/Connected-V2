@@ -1,0 +1,341 @@
+
+<div style="background-color: rgb(20, 58, 136)">
+<div class="container" >
+  <br><br>
+  <h1 style="color: #FFF;" class="d-flex justify-content-center">Quel diplôme ou compétence recherchez-vous ?</h1>
+  <br>
+  <div class="input-group mb-3 input-group-append" >
+    <button class="btn btn-outline-info hov dropdown-toggle input-group-text d-none d-sm-block"  type="button" data-bs-toggle="dropdown" aria-expanded="false">{{Categories}}</button>
+    <button class="btn btn-outline-info hov input-group-text d-block d-sm-none"  type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list"></i></button>
+    <ul class="dropdown-menu">
+      <li (click)="getcategorie('')" class="dropdown-submenu"><a class="dropdown-item"> Tout Domaines</a></li>
+      <li class="dropdown-submenu dropend " (click)="toggleDropdown($event, 'academics')"><a class="dropdown-item  " >Programmes académiques </a>
+        <ul class="dropdown-menu" [ngClass]="{'show': currentCategory === 'academics'}">
+          <li (click)="getcategorie('programmes de premier cycle')"  ><a class="dropdown-item" >Programmes de premier cycle </a></li>
+          <li (click)="getcategorie('programmes de cycle superieur')"><a class="dropdown-item">Programmes de cycle supérieur</a></li>
+          <li (click)="getcategorie('programmes de diplome professionnel')"><a class="dropdown-item">Programmes de diplôme professionnel</a></li>
+          <li (click)="getcategorie('certificats')"><a class="dropdown-item">Certificats</a></li>
+          <li (click)="getcategorie('diplomes')"><a class="dropdown-item">Diplômes</a></li>
+          <li (click)="getcategorie('autres programmes academiques')"><a class="dropdown-item">Autre Programmes académiques </a></li>
+        </ul>
+      </li>
+      <li class="dropdown-submenu dropend"(click)="toggleDropdown($event, 'professional')"><a class="dropdown-item  ">Développement professionnel</a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'professional'}">
+          <li (click)="getcategorie('gestion et leadership')"><a class="dropdown-item">Gestion et leadership</a></li>
+          <li (click)="getcategorie('vente et marketing')"><a class="dropdown-item">Vente et marketing</a></li>
+          <li (click)="getcategorie('ressources humaines')"><a class="dropdown-item">Ressources humaines</a></li>
+          <li (click)="getcategorie('finance et comptabilite')"><a class="dropdown-item">Finance et comptabilité</a></li>
+          <li (click)="getcategorie('gestion de projet')"><a class="dropdown-item">Gestion de projet</a></li>
+          <li (click)="getcategorie('technologie de l\'information')"><a class="dropdown-item">Technologie de l'information</a></li>
+          <li (click)="getcategorie('sante et securite')"><a class="dropdown-item">Santé et sécurité</a></li>
+          <li (click)="getcategorie('legal et conformite')"><a class="dropdown-item">Légal et conformité</a></li>
+          <li (click)="getcategorie('autre developpement professionnel')"><a class="dropdown-item">Autre Développement professionnel</a></li>
+        </ul>
+      </li>
+       <li class="dropdown-submenu" (click)="toggleDropdown($event, 'personnel')"><a class="dropdown-item " >Développement personnel</a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'personnel'}" >
+          <li (click)="getcategorie('gestion du temps')"><a class="dropdown-item" >Gestion du temps</a></li>
+          <li (click)="getcategorie('productivite')"><a class="dropdown-item" >Productivité</a></li>
+          <li (click)="getcategorie('amelioration de soi')"><a class="dropdown-item" >Amélioration de soi</a></li>
+          <li (click)="getcategorie('pleine conscience et meditation')"><a class="dropdown-item" >Pleine conscience et méditation</a></li>
+          <li (click)="getcategorie('reduction du stress')"><a class="dropdown-item" >Réduction du stress</a></li>
+          <li (click)="getcategorie('sante et bien etre')"><a class="dropdown-item" >Santé et bien-être</a></li>
+          <li (click)="getcategorie('arts et artisanat creatifs')"><a class="dropdown-item" >Arts et artisanat créatifs</a></li>
+          <li (click)="getcategorie('cuisine et arts culinaires')"><a class="dropdown-item" >Cuisine et arts culinaires</a></li>
+          <li (click)="getcategorie('autre developpement personnel')"><a class="dropdown-item">Autre Développement personnel</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown-submenu" (click)="toggleDropdown($event, 'Formation')"><a class="dropdown-item " >Formation professionnelle</a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'Formation'}" >
+          <li (click)="getcategorie('apprentissages')"><a class="dropdown-item" >Apprentissages</a></li>
+          <li (click)="getcategorie('certificats professionnels')"><a class="dropdown-item" >Certificats professionnels</a></li>
+          <li (click)="getcategorie('programmes d\'ecole de metier')"><a class="dropdown-item" >Programmes d'école de métier</a></li>
+          <li (click)="getcategorie('metiers specialises')"><a class="dropdown-item" >Métiers spécialisés</a></li>
+          <li (click)="getcategorie('automobile')"><a class="dropdown-item" >Automobile</a></li>
+          <li (click)="getcategorie('construction')"><a class="dropdown-item" >Construction</a></li>
+          <li (click)="getcategorie('electricite')"><a class="dropdown-item" >Électricité</a></li>
+          <li (click)="getcategorie('plomberie')"><a class="dropdown-item" >Plomberie</a></li>
+          <li (click)="getcategorie('Soudage')"><a class="dropdown-item" >Soudage</a></li>
+          <li (click)="getcategorie('Autre Formation professionnelle')"><a class="dropdown-item">Autre Formation professionnelle</a></li>
+        </ul>
+      </li>
+      <li class="dropdown-submenu" (click)="toggleDropdown($event, 'langues')"><a class="dropdown-item " > Apprentissage des langues</a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'langues'}" >
+          <li (click)="getcategorie('Cours de langue')"><a class="dropdown-item" >Cours de langue</a></li>
+          <li (click)="getcategorie('Programmes d\'immersion')"><a class="dropdown-item" >Programmes d'immersion</a></li>
+          <li (click)="getcategorie('Programmes d\'échange linguistique')"><a class="dropdown-item" >Programmes d'échange linguistique</a></li>
+          <li (click)="getcategorie('Programmes de certification de langues')"><a class="dropdown-item" >Programmes de certification de langue</a></li>
+          <li (click)="getcategorie('Préparation aux examens')"><a class="dropdown-item" >Préparation aux examens</a></li>
+          <li (click)="getcategorie('Préparation aux examens standardisés')"><a class="dropdown-item" >Préparation aux examens standardisés</a></li>
+          <li (click)="getcategorie('Examens de certification professionnelle')"><a class="dropdown-item" >Examens de certification professionnelle</a></li>
+          <li (click)="getcategorie('Autre pprentissage des langues')"><a class="dropdown-item">Autre pprentissage des langues</a></li>
+        </ul>
+      </li>
+       <li class="dropdown-submenu" (click)="toggleDropdown($event, 'Éducation')"><a class="dropdown-item " > Éducation continue </a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'Éducation'}" >
+          <li (click)="getcategorie('Ateliers et séminaires')"><a class="dropdown-item" >Ateliers et séminaires</a></li>
+          <li (click)="getcategorie('Conférences')"><a class="dropdown-item" >Conférences</a></li>
+          <li (click)="getcategorie('Cours courts')"><a class="dropdown-item" >Cours courts</a></li>
+          <li (click)="getcategorie('Apprentissage en ligne')"><a class="dropdown-item" >Apprentissage en ligne</a></li>
+          <li (click)="getcategorie('Autre Éducation continue')"><a class="dropdown-item">Autre Éducation continue</a></li>
+        </ul>
+      </li>
+      <li class="dropdown-submenu" (click)="toggleDropdown($event, 'spécifique')"><a class="dropdown-item " > Formation spécifique à l'industrie </a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'spécifique'}" >
+          <li (click)="getcategorie('Soins de santé')"><a class="dropdown-item" >Soins de santé</a></li>
+          <li (click)="getcategorie('Hôtellerie et tourisme')"><a class="dropdown-item" >Hôtellerie et tourisme</a></li>
+          <li (click)="getcategorie('Vente au détail et vente')"><a class="dropdown-item" >Vente au détail et vente</a></li>
+          <li (click)="getcategorie('Fabrication')"><a class="dropdown-item" >Fabrication</a></li>
+          <li (click)="getcategorie('Transport et logistique')"><a class="dropdown-item" >Transport et logistique</a></li>
+          <li (click)="getcategorie('Énergie et services publics')"><a class="dropdown-item" >Énergie et services publics</a></li>
+          <li (click)="getcategorie('Agriculture et agriculture')"><a class="dropdown-item" >Agriculture et agriculture</a></li>
+          <li (click)="getcategorie('Autre spécifique à l\'industrie')"><a class="dropdown-item">Autre spécifique à l'industrie</a></li>
+        </ul>
+      </li>
+      <li class="dropdown-submenu" (click)="toggleDropdown($event, 'technologique')"><a class="dropdown-item " > Formation technologique </a>
+        <ul class="dropdown-menu"  [ngClass]="{'show': currentCategory === 'technologique'}" >
+          <li (click)="getcategorie('Codage et programmation')"><a class="dropdown-item" >Codage et programmation</a></li>
+          <li (click)="getcategorie('Cybersécurité')"><a class="dropdown-item" >Cybersécurité</a></li>
+          <li (click)="getcategorie('Cloud computing')"><a class="dropdown-item" >Cloud computing</a></li>
+          <li (click)="getcategorie('Science des données')"><a class="dropdown-item" >Science des données</a></li>
+          <li (click)="getcategorie('Intelligence artificielle et apprentissage automatique')"><a class="dropdown-item" >Intelligence artificielle et apprentissage automatique</a></li>
+          <li (click)="getcategorie('Développement web')"><a class="dropdown-item" >Développement web</a></li>
+          <li (click)="getcategorie('Autre Formation technologique')"><a class="dropdown-item">Autre Formation technologique</a></li>
+        </ul>
+      </li>
+      <li class="dropdown-submenu " (click)="toggleDropdown($event, 'humanités')"><a class="dropdown-item " > Arts et humanités </a>
+        <ul class="dropdown-menu" [ngClass]="{'show': currentCategory === 'humanités'}"  >
+          <li (click)="getcategorie('Musique')"><a class="dropdown-item" >Musique</a></li>
+          <li (click)="getcategorie('Théâtre et performance')"><a class="dropdown-item" >Théâtre et performance</a></li>
+          <li (click)="getcategorie('Film et vidéo')"><a class="dropdown-item" >Film et vidéo</a></li>
+          <li (click)="getcategorie('Écriture et littérature')"><a class="dropdown-item" >Écriture et littérature</a></li>
+          <li (click)="getcategorie('Philosophie')"><a class="dropdown-item" >Philosophie</a></li>
+          <li (click)="getcategorie('Histoire')"><a class="dropdown-item" >Histoire</a></li>
+          <li (click)="getcategorie('Religion')"><a class="dropdown-item" >Religion</a></li>
+          <li (click)="getcategorie('Autre Arts et humanités')"><a class="dropdown-item">Autre Arts et humanités</a></li>
+        </ul>
+      </li>
+      <li (click)="getcategorie('Autre')" class="dropdown-submenu"><a class="dropdown-item"> Autre</a></li>
+    </ul>
+
+
+    <input type="text" class="form-control" placeholder="Domaines,compétence,diplome ou métier,ville,département,région..." aria-label="Text input with dropdown button" [(ngModel)]="mot_clee">
+    <button class="btn btn-outline-info hov"  (click)="recherche()" type="button"><i class="bi bi-search"></i></button>
+  </div>
+<br>
+</div>
+</div>
+
+
+<br><br>
+
+<div class="container">
+
+
+ <div class="container d-flex justify-content-center">
+  <div class="btn-group"role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check"  name="btnradio" id="btnradio1" autocomplete="off" checked (click)="change('all')">
+    <label class="btn btn-outline-info" for="btnradio1">Tout</label>
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" (click)="change('formationonly')">
+    <label class="btn btn-outline-info" for="btnradio2">Formations </label>
+
+
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" (click)="change('ebookonly')">
+    <label class="btn btn-outline-info" for="btnradio3">E-books </label>
+  </div>
+</div>
+<br>
+<div class="pagetitle">
+  <h5>  {{nbformations + nbebooks}} résultat correspondant à ces critères.</h5>
+</div>
+
+
+
+<br>
+<section class="section profile">
+
+<div *ngIf="filter()=='' ">
+    <div class="alert alert-primary d-flex align-items-center" role="alert" >
+      Il n’y a pas de résultat correspondant à ces critères.
+    </div>
+    <br><br><br>
+  </div>
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+
+      <div class="col" *ngFor="let item of filter()">
+        <button type="button" [attr.data-bs-toggle]="'modal'" [attr.data-bs-target]="item.auteur ? '#exampleModal' : '#exampleModal2'" class="btn btn-outline-light" (click)="check(item.auteur,item.id)">
+          <div class="card h-100 shadow-lg">
+            <div class="zoom">
+              <img src="{{imagepath}}{{item.img}}" class="card-img-top" alt="..." style="height: 250px; width: 250px; object-fit: cover;">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{item.titre}}</h5>
+            </div>
+          </div>
+        </button>
+      </div>
+      </div>
+
+
+
+
+
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">{{formation.titre | titlecase}}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body ">
+
+            <div class="col-md-2 col-lg-2" class="row mb-3">
+              <img src="{{imagepath}}{{formation.img}}" alt="Profile">
+           </div>
+
+
+           <div class="row">
+              <div class="col-lg-4 col-md-4 label" style="color:#012970;" >Description :</div>
+              <div class="col-lg-8 col-md-8" style="word-wrap: break-word">{{formation.discription | titlecase}}</div>
+           </div>
+           <div class="row" *ngIf="formation.date_debut ">
+            <div class="col-lg-4 col-md-4 label"style="color:#012970; " >Date de la debut :</div>
+            <div class="col-lg-8 col-md-8">{{formation.date_debut | date }}</div>
+         </div>
+           <div class="row" *ngIf="formation.date_fin ">
+            <div class="col-lg-4 col-md-4 label"style="color:#012970; " >Date de la fin :</div>
+            <div class="col-lg-8 col-md-8">{{formation.date_fin | date }}</div>
+         </div>
+         <div class="row">
+          <div class="col-lg-4 col-md-4 label"style="color:#012970; ">Prix :</div>
+          <div class="col-lg-8 col-md-8">{{formation.prix }} DT</div>
+       </div>
+       <div class="row">
+        <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  > Heures :</div>
+        <div class="col-lg-8 col-md-8">{{formation.heures | number}} h</div>
+     </div>
+     <div class="row" *ngIf="formation.promotion">
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Promotion :</div>
+      <div class="col-lg-8 col-md-8">{{formation.promotion | number}} %</div>
+    </div>
+    <div class="row" *ngIf="formation.categorie!='Autre'">
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Domaine :</div>
+      <div class="col-lg-8 col-md-8">{{formation.categorie | titlecase}} </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Etat :</div>
+      <div class="col-lg-8 col-md-8">{{formation.etat | titlecase}} </div>
+    </div>
+
+    <div class="row" *ngIf="formation.diplome">
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Diplome :</div>
+      <div class="col-lg-8 col-md-8">{{formation.diplome | titlecase}} </div>
+    </div>
+
+    <div class="row" *ngIf="formation.certifiee">
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Certifiee :</div>
+      <div class="col-lg-8 col-md-8">{{formation.certifiee | titlecase}} </div>
+    </div>
+
+    <div class="row" >
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Centre :</div>
+      <div class="col-lg-8 col-md-8">{{formation.Centre.name | titlecase}} </div>
+    </div>
+
+    <div class="row" >
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Localisation :</div>
+      <div class="col-lg-8 col-md-8">{{formation.Centre.localisation | titlecase}} </div>
+    </div>
+
+    <div class="row" >
+      <div class="col-lg-4 col-md-4 label"style="color:#012970;  "  >Télephone :</div>
+      <div class="col-lg-8 col-md-8">{{formation.Centre.tel }} </div>
+    </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" *ngIf="participer && userrole!='admin' && userrole!='centre'"  (click)="annulerparticipation()">Annuler participation</button>
+            <button type="button" class="btn btn-primary"  *ngIf="!participer && userrole!='admin' && userrole!='centre' "  [attr.data-bs-dismiss]="verif ? 'modal' : null"  (click)="participation()">Participer</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ebook.titre | titlecase}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+
+        <div class="col-md-2 col-lg-2" class="row mb-3">
+          <img src="{{imagepath}}{{ebook.img}}" alt="Profile">
+       </div>
+
+       <div class="row">
+        <div class="col-lg-3 col-md-4 label" style="color:#012970;" >Acheteurs : </div>
+        <div class="col-lg-9 col-md-8">{{achat.count | number}}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+     </div>
+        <div class="row">
+          <div class="col-lg-3 col-md-4 label" style="color:#012970;" >Description :</div>
+          <div class="col-lg-9 col-md-8" style="word-wrap: break-word">{{ebook.discription | titlecase}}</div>
+       </div>
+       <div class="row">
+        <div class="col-lg-3 col-md-4 label"style="color:#012970; " >Auteur :</div>
+        <div class="col-lg-9 col-md-8">{{ebook.auteur | titlecase }}</div>
+     </div>
+     <div class="row">
+      <div class="col-lg-3 col-md-4 label"style="color:#012970;  "  >Format :</div>
+      <div class="col-lg-9 col-md-8">{{ebook.format }}</div>
+   </div>
+   <div class="row">
+    <div class="col-lg-3 col-md-4 label"style="color:#012970;  "  > Pages :</div>
+    <div class="col-lg-9 col-md-8">{{ebook.nb_pages | number}}</div>
+ </div>
+ <div class="row">
+  <div class="col-lg-3 col-md-4 label"style="color:#012970;  "  >Prix :</div>
+  <div class="col-lg-9 col-md-8">{{ebook.prix | number}} DT</div>
+</div>
+<div class="row" *ngIf="ebook.promotion">
+  <div class="col-lg-3 col-md-4 label" style="color:#012970;  " >Promotion :</div>
+  <div class="col-lg-9 col-md-8">{{ebook.promotion | number }} %</div>
+</div>
+<div class="row"  *ngIf="ebook.categorie!='Autre'">
+  <div class="col-lg-3 col-md-4 label" style="color:#012970;  " >Domaine :</div>
+  <div class="col-lg-9 col-md-8">{{ebook.categorie | titlecase }} </div>
+</div>
+
+
+
+      </div>
+      <div class="modal-footer">
+
+
+        <button type="button" class="btn btn-primary" *ngIf="isbuy && userrole!='admin' && userrole!='centre'" [attr.data-bs-dismiss]="verif ? 'modal' : null" (click)="acheter()"><a style="color: #fff;" routerLink="/client/ebook"> Mon achat </a> </button>
+        <button type="button" class="btn btn-primary" *ngIf="!isbuy && userrole!='admin' && userrole!='centre'" [attr.data-bs-dismiss]="verif ? 'modal' : null" (click)="acheter()">Acheter </button>
+
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </section>
+</div>
+
+
+
+
+

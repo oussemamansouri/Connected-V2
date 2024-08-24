@@ -1,0 +1,91 @@
+.dropdown-submenu {
+  position: relative;
+  cursor: pointer;
+  }
+
+  .dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+  }
+
+  @media (min-width: 992px) {
+  /* Desktop devices */
+  .dropdown-submenu:focus > .dropdown-menu {
+  display: block;
+  }
+
+  .dropdown-submenu:focus > a:after {
+  border-left-color: #fff;
+  }
+
+  /* Add this style to remove the focus outline on click */
+  .dropdown-submenu:focus {
+  outline: none;
+  }
+  }
+
+
+
+  @media (max-width: 991px) {
+  /* Mobile and tablet devices */
+  .dropdown-submenu > a:after {
+  display: none;
+  }
+
+  .dropdown-submenu:focus-within > .dropdown-menu {
+  display: block;
+  }
+
+  /* Add this style to remove the focus outline on click */
+  .dropdown-submenu:focus-within {
+  outline: none;
+  }
+  }
+  /////////
+  .btn-outline-info{
+    background-color: rgb(20, 58, 136);
+    }
+    .btn-outline-info:hover{
+      color:aliceblue ;
+      }
+
+
+/////////////
+
+  .zoom {
+    overflow: hidden;
+    position: relative;
+  }
+  .zoom img {
+    transition: transform .2s;
+  }
+  .zoom:hover img {
+    transform: scale(1.1);
+  }
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .zoom:hover .icon {
+    opacity: 1;
+  }
+  //////////
+
+.hov:hover{
+  background-color: #0dcaf0;
+  color: black;
+}
+
+
+
+
+
+
+
