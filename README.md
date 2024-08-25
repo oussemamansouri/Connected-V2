@@ -9,3 +9,5 @@ But that's not all! In my pursuit of mastering various backend technologies and 
 - Angular CLI: 14.1.3
 - Node: 16.16.0
 - Package Manager: npm 9.4.1
+- Express: 4.18.2
+- Sequelize: 6.29.0
