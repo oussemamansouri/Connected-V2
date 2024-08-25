@@ -1,29 +1,28 @@
-module.exports=(sequelize,DataType)=>{
-    const Achat=sequelize.define("Achat",{
-       
+module.exports = (sequelize, DataType) => {
+    // Define the Achat model with its attributes and options
+    const Achat = sequelize.define("Achat", {
+        // Currently, no additional attributes are defined for the Achat model
     }, {
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_general_ci'
-      })
+        // Options for character set and collation
+        charset: 'utf8mb4', // Character set for the table
+        collate: 'utf8mb4_general_ci' // Collation for sorting and comparing strings
+    });
 
-    Achat.associate=models=>{
-
+    // Define associations between models
+    Achat.associate = models => {
+        // Achat model belongs to the Client model
         Achat.belongsTo(models.Client, {
-            onDelete: "cascade",
-            onUpdate: 'cascade'
-         })
-         Achat.belongsTo(models.Ebook, {
-            onDelete: "cascade",
-            onUpdate: 'cascade'
-         })
-         // Achat.belongsTo(models.Centre, {
-         //    onDelete: "cascade",
-         //    onUpdate: 'cascade'
-         // })
+            onDelete: "cascade", // If the associated Client is deleted, also delete the Achat
+            onUpdate: 'cascade' // If the associated Client is updated, also update the Achat
+        });
 
+        // Achat model also belongs to the Ebook model
+        Achat.belongsTo(models.Ebook, {
+            onDelete: "cascade", // If the associated Ebook is deleted, also delete the Achat
+            onUpdate: 'cascade' // If the associated Ebook is updated, also update the Achat
+        });
+    };
 
-    }  
-
-return Achat
-
-} 
+    // Return the defined Achat model
+    return Achat;
+};
