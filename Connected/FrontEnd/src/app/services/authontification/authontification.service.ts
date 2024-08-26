@@ -1,53 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import {  Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Service is available application-wide
 })
 export class AuthontificationService {
 
+  helper = new JwtHelperService(); // Instance of JWT helper service
 
-  helper=new JwtHelperService
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
+  // Method to send login credentials to the server
+  login(body: any) {
+    return this.http.post('http://localhost:3000/login', body); // Send POST request to login endpoint
+  }
 
+  // Method to save the token in local storage
+  savedata(token: any) {
+    localStorage.setItem('token', token); // Store token in local storage
+  }
 
-
-login(body:any){
-return this.http.post('http://localhost:3000/login',body)
-}
-
-savedata(token:any){
-localStorage.setItem('token',token)
-
-}
-
-logedin(): boolean {
-  const token = localStorage.getItem('token');
-  return !!token && !this.helper.isTokenExpired(token);
-}
-
-
-// loginadmin(){
-//   let token:any=localStorage.getItem('token')
-//   let decodedtoken:any = this.helper.decodeToken(token)
-// if(this.logedin()==true && decodedtoken.role=='admin' ){  return true  }
-// else return false
-// }
-
-// loginclient(){
-//   let token:any=localStorage.getItem('token')
-//   let decodedtoken:any = this.helper.decodeToken(token)
-// if(this.logedin()==true && decodedtoken.role=='client' ){  return true  }
-// else return false
-// }
-// logincentre(){
-//   let token:any=localStorage.getItem('token')
-//   let decodedtoken:any = this.helper.decodeToken(token)
-// if(this.logedin()==true && decodedtoken.role=='centre' ){  return true  }
-// else return false
-// }
-
+  // Method to check if the user is logged in
+  logedin(): boolean {
+    const token = localStorage.getItem('token'); // Retrieve token from local storage
+    return !!token && !this.helper.isTokenExpired(token); // Return true if token exists and is not expired
+  }
 
 }
