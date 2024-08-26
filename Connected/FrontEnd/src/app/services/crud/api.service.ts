@@ -1,194 +1,243 @@
 import { HttpClient } from '@angular/common/http';
-import {  Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Service is available application-wide
 })
 export class ApiService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
+  // Get admin profile
+  getadmin() {
+    return this.http.get('http://localhost:3000/admin/profile');
+  }
 
-  getadmin(){
-    return this.http.get('http://localhost:3000/admin/profile') // ,{params:this.params,headers:this.header} |
-   }
+  // Update admin profile
+  updateadmin(body: any, id: any) {
+    return this.http.patch(`http://localhost:3000/admin/updateprofile/${id}`, body);
+  }
 
-   updateadmin(body:any,id:any){
-    return this.http.patch(`http://localhost:3000/admin/updateprofile/${id}`,body) // ,{params:this.params,headers:this.header} |
-   }
+  // Update admin password
+  updatepassword(body: any, id: any) {
+    return this.http.patch(`http://localhost:3000/admin/updatepassword/${id}`, body);
+  }
 
-   updatepassword(body:any,id:any){
-    return this.http.patch(`http://localhost:3000/admin/updatepassword/${id}`,body) // ,{params:this.params,headers:this.header} |
-   }
-   updatecentrepassword(body:any,id:any){
-    return this.http.patch(`http://localhost:3000/centre/updatepassword/${id}`,body) // ,{params:this.params,headers:this.header} |
-   }
-   updateclientpassword(body:any,id:any){
-    return this.http.patch(`http://localhost:3000/client/updatepassword/${id}`,body) // ,{params:this.params,headers:this.header} |
-   }
+  // Update centre password
+  updatecentrepassword(body: any, id: any) {
+    return this.http.patch(`http://localhost:3000/centre/updatepassword/${id}`, body);
+  }
 
-   getcentres(){
-    return this.http.get('http://localhost:3000/centre/profiles') // ,{params:this.params,headers:this.header} |
-   }
+  // Update client password
+  updateclientpassword(body: any, id: any) {
+    return this.http.patch(`http://localhost:3000/client/updatepassword/${id}`, body);
+  }
 
-   deletecentre(id:any){
-    return this.http.delete(`http://localhost:3000/centre/deleteprofile/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Get all centres
+  getcentres() {
+    return this.http.get('http://localhost:3000/centre/profiles');
+  }
 
+  // Delete a centre
+  deletecentre(id: any) {
+    return this.http.delete(`http://localhost:3000/centre/deleteprofile/${id}`);
+  }
 
-   getcentre(id:any){
-    return this.http.get(`http://localhost:3000/centre/profile/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Get a specific centre's profile
+  getcentre(id: any) {
+    return this.http.get(`http://localhost:3000/centre/profile/${id}`);
+  }
 
-   getcentreformations(id:any){
-    return this.http.get(`http://localhost:3000/centre/formation/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Get formations for a specific centre
+  getcentreformations(id: any) {
+    return this.http.get(`http://localhost:3000/centre/formation/${id}`);
+  }
 
-   getcentreebooks(id:any){
-    return this.http.get(`http://localhost:3000/centre/ebook/${id}`) // ,{params:this.params,headers:this.header} |
-   }
-   getebookbyid(id:any){
-    return this.http.get(`http://localhost:3000/ebook/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Get ebooks for a specific centre
+  getcentreebooks(id: any) {
+    return this.http.get(`http://localhost:3000/centre/ebook/${id}`);
+  }
 
-   deleteebook(id:any){
-    return this.http.delete(`http://localhost:3000/deleteebook/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Get ebook by ID
+  getebookbyid(id: any) {
+    return this.http.get(`http://localhost:3000/ebook/${id}`);
+  }
 
-   getformation(id:any){
-    return this.http.get(`http://localhost:3000/formation/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Delete an ebook
+  deleteebook(id: any) {
+    return this.http.delete(`http://localhost:3000/deleteebook/${id}`);
+  }
 
-   deleteformation(id:any){
-    return this.http.delete(`http://localhost:3000/deleteformation/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Get formation by ID
+  getformation(id: any) {
+    return this.http.get(`http://localhost:3000/formation/${id}`);
+  }
 
-   getclients(){
-    return this.http.get('http://localhost:3000/client/profiles') // ,{params:this.params,headers:this.header} |
-   }
+  // Delete a formation
+  deleteformation(id: any) {
+    return this.http.delete(`http://localhost:3000/deleteformation/${id}`);
+  }
 
+  // Get all clients
+  getclients() {
+    return this.http.get('http://localhost:3000/client/profiles');
+  }
 
-   deleteclient(id:any){
-    return this.http.delete(`http://localhost:3000/client/deleteprofile/${id}`) // ,{params:this.params,headers:this.header} |
-   }
+  // Delete a client
+  deleteclient(id: any) {
+    return this.http.delete(`http://localhost:3000/client/deleteprofile/${id}`);
+  }
 
-   getclient(id:any){
-    return this.http.get(`http://localhost:3000/client/profile/${id}`)
-   }
+  // Get a specific client's profile
+  getclient(id: any) {
+    return this.http.get(`http://localhost:3000/client/profile/${id}`);
+  }
 
-
+  // Download ebook by ID
   downloadebook(id: string): Observable<any> {
     const url = `http://localhost:3000/download-book/${id}`;
     return this.http.get(url, { responseType: 'blob' });
   }
 
-
-getclientparticipation(id:any){
-return this.http.get(`http://localhost:3000/participation/${id}`)
-}
-
-getclientachat(id:any){
-  return this.http.get(`http://localhost:3000/acheter/${id}`)
+  // Get client participation data
+  getclientparticipation(id: any) {
+    return this.http.get(`http://localhost:3000/participation/${id}`);
   }
 
-  getallformations(){
-    return this.http.get(`http://localhost:3000/formations`)
-    }
-
-    getallbooks(){
-      return this.http.get(`http://localhost:3000/ebooks`)
-      }
-
-    deleteparticipation(clientid:any,formationid:any){
-     return this.http.delete(`http://localhost:3000/deleteparticipation/${clientid}/${formationid}`)
-       }
-
-     deleteachatclient(clientid:any,bookid:any){
-      return this.http.delete(`http://localhost:3000/deleteachat/${clientid}/${bookid}`)
-       }
-
-  registrecentre(body:any){
-   return this.http.post(`http://localhost:3000/centre/register`,body)
+  // Get client purchase data
+  getclientachat(id: any) {
+    return this.http.get(`http://localhost:3000/acheter/${id}`);
   }
 
-  registreclient(body:any){
-    return this.http.post(`http://localhost:3000/client/register`,body)
-   }
+  // Get all formations
+  getallformations() {
+    return this.http.get('http://localhost:3000/formations');
+  }
 
-   updatecentre(id:any,body:any){
-return this.http.patch(`http://localhost:3000/centre/updateprofile/${id}`,body)
-   }
+  // Get all ebooks
+  getallbooks() {
+    return this.http.get('http://localhost:3000/ebooks');
+  }
 
-   updateclient(id:any,body:any){
-    return this.http.patch(`http://localhost:3000/client/updateprofile/${id}`,body)
-       }
+  // Delete participation record
+  deleteparticipation(clientid: any, formationid: any) {
+    return this.http.delete(`http://localhost:3000/deleteparticipation/${clientid}/${formationid}`);
+  }
 
-    updateformation(id:any,body:any){
-        return this.http.patch(`http://localhost:3000/updateformation/${id}`,body)
-           }
+  // Delete purchase record
+  deleteachatclient(clientid: any, bookid: any) {
+    return this.http.delete(`http://localhost:3000/deleteachat/${clientid}/${bookid}`);
+  }
 
-    updateebook(id:any,body:any){
-            return this.http.patch(`http://localhost:3000/updateebook/${id}`,body)
-               }
+  // Register a new centre
+  registrecentre(body: any) {
+    return this.http.post('http://localhost:3000/centre/register', body);
+  }
 
-    getparticipant(id:any){
-      return this.http.get(`http://localhost:3000/participant/${id}`)
-    }
-    deleteparticipant(clientid:any,formationid:any){
-      return this.http.delete(`http://localhost:3000/deleteparticipation/${clientid}/${formationid}`)
-    }
-    getbuyersebook(ebookid:any){
-      return this.http.get(`http://localhost:3000/acheteur/${ebookid}`)
-    }
-    deleteachat(clientid:any,ebookid:any){
-      return this.http.delete(`http://localhost:3000/deleteachat/${clientid}/${ebookid}`)
-    }
+  // Register a new client
+  registreclient(body: any) {
+    return this.http.post('http://localhost:3000/client/register', body);
+  }
 
+  // Update centre profile
+  updatecentre(id: any, body: any) {
+    return this.http.patch(`http://localhost:3000/centre/updateprofile/${id}`, body);
+  }
 
-    updateaadminimage(img:any,id:any){
-      return this.http.patch(`http://localhost:3000/admin/updateimage/${id}`,img)
-    }
-    updatecentreimage(img:any,id:any){
-      return this.http.patch(`http://localhost:3000/centre/updateimage/${id}`,img)
-    }
+  // Update client profile
+  updateclient(id: any, body: any) {
+    return this.http.patch(`http://localhost:3000/client/updateprofile/${id}`, body);
+  }
 
-    updateclientimage(img:any,id:any){
-      return this.http.patch(`http://localhost:3000/client/updateimage/${id}`,img)
-    }
-    updatecv(cv:any,id:any){
-      return this.http.patch(`http://localhost:3000/client/updatecv/${id}`,cv)
-    }
+  // Update formation details
+  updateformation(id: any, body: any) {
+    return this.http.patch(`http://localhost:3000/updateformation/${id}`, body);
+  }
 
-    addformation(body:any,id:any){
-      return this.http.post(`http://localhost:3000/addformation/${id}`,body)
-    }
+  // Update ebook details
+  updateebook(id: any, body: any) {
+    return this.http.patch(`http://localhost:3000/updateebook/${id}`, body);
+  }
 
-    getparticipationbycentre(ClientId:any,CentreId:any){
-      return this.http.get(`http://localhost:3000/participation/${ClientId}/${CentreId}`)
-    }
+  // Get participant by ID
+  getparticipant(id: any) {
+    return this.http.get(`http://localhost:3000/participant/${id}`);
+  }
 
-    getachatforcentre(ClientId:any,CentreId:any){
-      return this.http.get(`http://localhost:3000/achat/${ClientId}/${CentreId}`)
-    }
+  // Delete participant record
+  deleteparticipant(clientid: any, formationid: any) {
+    return this.http.delete(`http://localhost:3000/deleteparticipation/${clientid}/${formationid}`);
+  }
 
-addebookbycentre(body:any,id:any){
-return this.http.post(`http://localhost:3000/addebook/${id}`,body)
-}
+  // Get buyers for an ebook
+  getbuyersebook(ebookid: any) {
+    return this.http.get(`http://localhost:3000/acheteur/${ebookid}`);
+  }
 
-updateformationimage(img:any,id:any){
-return this.http.patch(`http://localhost:3000/updateformationimage/${id}`,img)
-}
-participation(body:any){
-  return this.http.post(`http://localhost:3000/participer`,body)
-}
+  // Delete a purchase record
+  deleteachat(clientid: any, ebookid: any) {
+    return this.http.delete(`http://localhost:3000/deleteachat/${clientid}/${ebookid}`);
+  }
 
-acheter(body:any){
-return this.http.post(`http://localhost:3000/acheterclient`,body)
-}
+  // Update admin profile image
+  updateaadminimage(img: any, id: any) {
+    return this.http.patch(`http://localhost:3000/admin/updateimage/${id}`, img);
+  }
 
-getcounts(){
-  return this.http.get('http://localhost:3000/counts')
-}
+  // Update centre profile image
+  updatecentreimage(img: any, id: any) {
+    return this.http.patch(`http://localhost:3000/centre/updateimage/${id}`, img);
+  }
+
+  // Update client profile image
+  updateclientimage(img: any, id: any) {
+    return this.http.patch(`http://localhost:3000/client/updateimage/${id}`, img);
+  }
+
+  // Update client CV
+  updatecv(cv: any, id: any) {
+    return this.http.patch(`http://localhost:3000/client/updatecv/${id}`, cv);
+  }
+
+  // Add a new formation
+  addformation(body: any, id: any) {
+    return this.http.post(`http://localhost:3000/addformation/${id}`, body);
+  }
+
+  // Get participation data by centre and client
+  getparticipationbycentre(ClientId: any, CentreId: any) {
+    return this.http.get(`http://localhost:3000/participation/${ClientId}/${CentreId}`);
+  }
+
+  // Get purchase data for a centre
+  getachatforcentre(ClientId: any, CentreId: any) {
+    return this.http.get(`http://localhost:3000/achat/${ClientId}/${CentreId}`);
+  }
+
+  // Add a new ebook by centre
+  addebookbycentre(body: any, id: any) {
+    return this.http.post(`http://localhost:3000/addebook/${id}`, body);
+  }
+
+  // Update formation image
+  updateformationimage(img: any, id: any) {
+    return this.http.patch(`http://localhost:3000/updateformationimage/${id}`, img);
+  }
+
+  // Participate in a formation
+  participation(body: any) {
+    return this.http.post(`http://localhost:3000/participer`, body);
+  }
+
+  // Purchase a formation
+  acheter(body: any) {
+    return this.http.post(`http://localhost:3000/acheterclient`, body);
+  }
+
+  // Get counts for various entities
+  getcounts() {
+    return this.http.get('http://localhost:3000/counts');
+  }
 
 }
