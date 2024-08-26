@@ -7,22 +7,14 @@ import { ApiService } from 'src/app/services/crud/api.service';
   styleUrls: ['./dashbord.component.scss']
 })
 export class DashbordComponent implements OnInit {
-  counts:any={}
+  counts: any = {}; // Object to store various counts fetched from the API
 
-  constructor(private api:ApiService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.api.getcounts().subscribe(data=>{this.counts=data
-      console.log(this.counts)}
-      )
-
-
-    // var s = document.createElement("script");
-    // s.type = "text/javascript";
-    // s.src = "../../../../../assets/admin/js/main.js";
-    // this.elementRef.nativeElement.appendChild(s);
+    // Fetch counts from the API when the component initializes
+    this.api.getcounts().subscribe(data => {
+      this.counts = data; // Assign the fetched data to the counts property
+    });
   }
-
-
-
 }
