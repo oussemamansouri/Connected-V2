@@ -10,47 +10,51 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ajoute-centre.component.scss']
 })
 export class AjouteCentreComponent implements OnInit {
-  img:any
-errmessage:any
-  constructor(private api:ApiService,private router:Router) { }
+  img: any; // Holds the selected image file
+  errmessage: any; // Holds error messages
+
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
+    // Initialization logic if needed
   }
 
-  selectImage(event:any) {
+  // Handles image file selection
+  selectImage(event: any) {
     if (event.target.files.length > 0) {
       const path = event.target.files[0];
-      // console.log(path)
-      this.img = path;
+      this.img = path; // Assign the selected image file to img
     }
   }
 
-  addcentre(f:NgForm){
+  // Submits the form to add a new centre
+  addcentre(f: NgForm) {
+    let body = f.value; // Get form data
+    const formData = new FormData();
 
-   let body=f.value
-const formData = new FormData();
+    // Append form data to FormData object
+    formData.append('name', body.name);
+    formData.append('email', body.email);
+    formData.append('img', this.img);
+    formData.append('password', body.password);
+    formData.append('tel', body.tel);
+    formData.append('site', body.site);
+    formData.append('services', body.services);
+    formData.append('fiscale', body.fiscale);
+    formData.append('license', body.license);
+    formData.append('nom_manager', body.nom_manager);
+    formData.append('prenom_manager', body.prenom_manager);
+    formData.append('tel_manager', body.tel_manager);
+    formData.append('localisation', body.localisation);
+    formData.append('facebook', body.facebook);
+    formData.append('linkedin', body.linkedin);
+    formData.append('instagram', body.instagram);
+    formData.append('twitter', body.twitter);
 
-formData.append('name',body.name)
-formData.append('email',body.email)
-formData.append('img', this.img)
-formData.append('password',body.password)
-formData.append('tel',body.tel)
-formData.append('site',body.site)
-formData.append('services',body.services)
-formData.append('fiscale',body.fiscale)
-formData.append('license',body.license)
-formData.append('nom_manager',body.nom_manager)
-formData.append('prenom_manager',body.prenom_manager)
-formData.append('tel_manager',body.tel_manager)
-formData.append('localisation',body.localisation)
-formData.append('facebook',body.facebook)
-formData.append('linkedin',body.linkedin)
-formData.append('instagram',body.instagram)
-formData.append('twitter',body.twitter)
-
-
-
-this.api.registrecentre(formData).subscribe(info=>this.router.navigate(['/admin/centre']),(err)=>this.errmessage='Ce email est déjà utilisé')
+    // Call the API service to register the centre and navigate on success
+    this.api.registrecentre(formData).subscribe(
+      info => this.router.navigate(['/admin/centre']),
+      (err: HttpErrorResponse) => this.errmessage = 'Ce email est déjà utilisé' // Handle error
+    );
   }
-
 }
