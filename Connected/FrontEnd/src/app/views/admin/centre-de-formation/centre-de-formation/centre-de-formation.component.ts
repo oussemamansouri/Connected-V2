@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { ApiService } from './../../../../services/crud/api.service';
-import { Component, OnInit , ElementRef} from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-centre-de-formation',
@@ -8,56 +8,51 @@ import { Component, OnInit , ElementRef} from '@angular/core';
   styleUrls: ['./centre-de-formation.component.scss']
 })
 export class CentreDeFormationComponent implements OnInit {
+  profiles: any; // Stores the list of training centers
+  imagepath: any = 'http://localhost:3000/'; // Base path for images
+  centreId: any; // Stores the ID of the selected training center
+  searchTerm: any; // Stores the search term for filtering the centers
 
-  profiles:any
-  imagepath:any='http://localhost:3000/'
-  centreId:any
-  searchTerm:any
-  constructor(private elementRef: ElementRef,private api:ApiService , private router:Router) { }
-
+  constructor(private elementRef: ElementRef, private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-
-    // var s = document.createElement("script");
-    // s.type = "text/javascript";
-    // s.src = "../../../../../assets/admin/js/main.js";
-    // this.elementRef.nativeElement.appendChild(s);
-
-
-this.api.getcentres().subscribe(data=>
-{this.profiles=data
-// this.imagepath=this.imagepath + this.profiles.img
-})
+    // Fetch the list of training centers and assign it to profiles
+    this.api.getcentres().subscribe(data => {
+      this.profiles = data;
+    });
   }
 
-  deletecentre(){
-this.api.deletecentre(this.centreId).subscribe(info=>{
- // console.log(info)
-  this.ngOnInit()
-})
+  // Delete the selected training center and refresh the list
+  deletecentre() {
+    this.api.deletecentre(this.centreId).subscribe(() => {
+      this.ngOnInit(); // Refresh the list of centers
+    });
   }
 
-  selectId(id:any) {
-    this.centreId=id
-      }
+  // Set the centreId to the selected training center's ID
+  selectId(id: any) {
+    this.centreId = id;
+  }
 
-      sendid(id:any) {
-        this.router.navigate(['/admin/centre/update'], { queryParams: { centreId: id } });
-          }
+  // Navigate to the update page for the selected training center
+  sendid(id: any) {
+    this.router.navigate(['/admin/centre/update'], { queryParams: { centreId: id } });
+  }
 
-      detIdcentre(id:any) {
-        this.router.navigate(['/admin/centre/details'], { queryParams: { centreId: id } });
-      }
+  // Navigate to the details page for the selected training center
+  detIdcentre(id: any) {
+    this.router.navigate(['/admin/centre/details'], { queryParams: { centreId: id } });
+  }
 
+  // Filter the list of centers based on the search term
+  filter() {
+    if (!this.searchTerm) {
+      return this.profiles; // Return all centers if no search term is provided
+    }
 
-      filter() {
-        if (!this.searchTerm) {
-          return this.profiles;
-        }
-
-        return this.profiles.filter((item:any) =>
-          item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
-      }
-
+    // Filter centers where the name includes the search term
+    return this.profiles.filter((item: any) =>
+      item.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 }
