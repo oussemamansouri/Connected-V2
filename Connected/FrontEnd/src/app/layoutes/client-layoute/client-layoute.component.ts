@@ -10,41 +10,49 @@ import { ApiService } from 'src/app/services/crud/api.service';
   styleUrls: ['./client-layoute.component.scss']
 })
 export class ClientLayouteComponent implements OnInit {
-  data:any
-  token:any
+  data: any;
+  token: any;
 
-  imagepath:any='http://localhost:3000/'
-  helper= new JwtHelperService
+  // Base path for images
+  imagepath: any = 'http://localhost:3000/';
 
-    constructor(@Inject(DOCUMENT) private document: Document,private route:Router,private api:ApiService) {}
-     logout(){
-  localStorage.removeItem('token')
-  this.route.navigate(['/'])
+  // Instance of JWT helper service
+  helper = new JwtHelperService();
 
-     }
+  constructor(
+    @Inject(DOCUMENT) private document: Document, // Inject Document for DOM manipulation
+    private route: Router,                       // Inject Router for navigation
+    private api: ApiService                      // Inject ApiService for API calls
+  ) { }
 
-    ngOnInit(): void {
+  // Method to handle user logout
+  logout() {
+    localStorage.removeItem('token'); // Remove token from local storage
+    this.route.navigate(['/']);       // Redirect to the home page
+  }
 
-  let token:any= localStorage.getItem('token')
-  let decodedtoken=this.helper.decodeToken(token)
-  this.api.getclient(decodedtoken.id).subscribe(data=>this.data=data)
-    }
+  ngOnInit(): void {
+    // Get the token from local storage
+    let token: any = localStorage.getItem('token');
 
-    sidebarToggle()
-    {
-      //toggle sidebar function
-      this.document.body.classList.toggle('toggle-sidebar');
-    }
-    scrollTop()
-    {
-      window.scroll({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-  });
+    // Decode the token to extract user information
+    let decodedtoken = this.helper.decodeToken(token);
 
-    }
+    // Fetch client data based on the decoded user ID
+    this.api.getclient(decodedtoken.id).subscribe(data => this.data = data);
+  }
 
+  // Method to toggle the sidebar visibility
+  sidebarToggle() {
+    this.document.body.classList.toggle('toggle-sidebar');
+  }
 
-
+  // Method to scroll the page to the top
+  scrollTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }
