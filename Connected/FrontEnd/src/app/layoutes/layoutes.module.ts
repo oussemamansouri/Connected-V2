@@ -11,11 +11,6 @@ import { PnfLayouteComponent } from './pnf-layoute/pnf-layoute.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     AdminLayouteComponent,
