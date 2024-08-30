@@ -1,73 +1,85 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../../../../services/crud/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Component, OnInit } from '@angular/core'; // Import Angular core component
+import { ApiService } from './../../../../services/crud/api.service'; // Import custom API service
+import { ActivatedRoute, Router } from '@angular/router'; // Import Router and ActivatedRoute for navigation and route parameters
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule for HTTP operations
+import { JwtHelperService } from '@auth0/angular-jwt'; // Import JwtHelperService for decoding JWT tokens
 
 @Component({
-  selector: 'app-client-details',
-  templateUrl: './client-details.component.html',
-  styleUrls: ['./client-details.component.scss']
+  selector: 'app-client-details', // Component selector
+  templateUrl: './client-details.component.html', // Path to the component's HTML template
+  styleUrls: ['./client-details.component.scss'] // Path to the component's stylesheet
 })
 export class ClientDetailsComponent implements OnInit {
-  clientId:any
-  dataclient:any
-  imagepath:any='http://localhost:3000/'
-  participation:any=[]
-  participants:any=[]
-  achat:any=[]
-  formationid:any
-  formation:any={date_debut:"",date_fin:"",id:"",titre:"",discription:"",img:"",prix:"",heures:"",promotion:"",categorie:"",etat:"",diplome:"",certifiee:"",createdAt:"",updatedAt:"",CentreId:"",Centre:{}}
-  buys:any=[]
-  ebookid:any
-  helper = new JwtHelperService
+  clientId: any; // ID of the client
+  dataclient: any; // Data of the client
+  imagepath: any = 'http://localhost:3000/'; // Base path for images
+  participation: any = []; // List of participations
+  participants: any = []; // List of participants in a formation
+  achat: any = []; // List of purchases
+  formationid: any; // ID of the selected formation
+  formation: any = { // Data of the selected formation
+    date_debut: "", date_fin: "", id: "", titre: "", discription: "", img: "", prix: "", heures: "", promotion: "", categorie: "", etat: "", diplome: "", certifiee: "", createdAt: "", updatedAt: "", CentreId: "", Centre: {}
+  };
+  buys: any = []; // List of purchases for an eBook
+  ebookid: any; // ID of the selected eBook
+  helper = new JwtHelperService(); // Instance of JwtHelperService
 
-  ebook:any={id:'',titre:'',discription:'',auteur:'',format:'',nb_pages:'',img:'',prix:'',promotion:'',book:'',createdAt:'',updatedAt:'',CentreId:''}
+  ebook: any = { // Data of the selected eBook
+    id: '', titre: '', discription: '', auteur: '', format: '', nb_pages: '', img: '', prix: '', promotion: '', book: '', createdAt: '', updatedAt: '', CentreId: ''
+  };
 
-  constructor(private route:ActivatedRoute,private api:ApiService,private router:Router) { }
+  constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    let token:any =localStorage.getItem('token')
-    let decodedtoken:any=this.helper.decodeToken(token)
-    this.clientId=this.route.snapshot.queryParams['clientId']
+    // Decode token and fetch data based on client ID
+    let token: any = localStorage.getItem('token');
+    let decodedtoken: any = this.helper.decodeToken(token);
+    this.clientId = this.route.snapshot.queryParams['clientId'];
 
-this.api.getclient(this.clientId).subscribe(data=>this.dataclient=data)
-this.api.getparticipationbycentre(this.clientId,decodedtoken.id).subscribe(data=>{this.participation=data})
-this.api.getachatforcentre(this.clientId,decodedtoken.id).subscribe(data=>this.achat=data)
+    this.api.getclient(this.clientId).subscribe(data => this.dataclient = data);
+    this.api.getparticipationbycentre(this.clientId, decodedtoken.id).subscribe(data => this.participation = data);
+    this.api.getachatforcentre(this.clientId, decodedtoken.id).subscribe(data => this.achat = data);
   }
 
-
-  sendid2(){
-    this.router.navigate(['/centre/ebook/buys'],{queryParams:{ebookId:this.ebookid}})
+  sendid2() {
+    // Navigate to eBook purchases page with the eBook ID
+    this.router.navigate(['/centre/ebook/buys'], { queryParams: { ebookId: this.ebookid } });
   }
 
-  getformationid(id:any){
-    this.formationid=id
-    this.api.getformation(id).subscribe(data=>{this.formation=data
-      if (this.formation.certifiee=='true'){
-        this.formation.certifiee='Oui'
-      }else if (this.formation.certifiee=='false'){
-        this.formation.certifiee='Non'
+  getformationid(id: any) {
+    // Fetch formation details and participants
+    this.formationid = id;
+    this.api.getformation(id).subscribe(data => {
+      this.formation = data;
+      // Set certification status text
+      if (this.formation.certifiee == 'true') {
+        this.formation.certifiee = 'Oui';
+      } else if (this.formation.certifiee == 'false') {
+        this.formation.certifiee = 'Non';
       }
-    })
-    this.api.getparticipant(id).subscribe(info=>this.participants=info)
+    });
+    this.api.getparticipant(id).subscribe(info => this.participants = info);
   }
 
-  deleteformation(){
-    this.api.deleteparticipation(this.clientId,this.formationid).subscribe(info=>this.ngOnInit())
+  deleteformation() {
+    // Delete participation record and refresh data
+    this.api.deleteparticipation(this.clientId, this.formationid).subscribe(() => this.ngOnInit());
   }
 
-  getbookId(id:any){
-    this.ebookid=id
-this.api.getebookbyid(id).subscribe(info=>{this.ebook=info})
-this.api.getbuyersebook(id).subscribe(data=>this.buys=data)
+  getbookId(id: any) {
+    // Fetch eBook details and buyers
+    this.ebookid = id;
+    this.api.getebookbyid(id).subscribe(info => this.ebook = info);
+    this.api.getbuyersebook(id).subscribe(data => this.buys = data);
   }
 
-  deleteebook(){
-    this.api.deleteachatclient(this.clientId,this.ebookid).subscribe(info=>this.ngOnInit())
-      }
+  deleteebook() {
+    // Delete eBook purchase record and refresh data
+    this.api.deleteachatclient(this.clientId, this.ebookid).subscribe(() => this.ngOnInit());
+  }
 
   downloadebook() {
+    // Download eBook file
     this.api.downloadebook(this.ebookid).subscribe((blob) => {
       const fileName = `Ebook.${this.ebook.format}`;
       const url = window.URL.createObjectURL(blob);
@@ -78,19 +90,22 @@ this.api.getbuyersebook(id).subscribe(data=>this.buys=data)
       a.download = fileName;
       a.click();
       window.URL.revokeObjectURL(url);
-      a.remove(); // remove the element
+      a.remove(); // Remove the download link
     });
   }
 
-  sendformationid(){
-    this.router.navigate(['/centre/formation/update'],{queryParams:{formationId:this.formationid}})
+  sendformationid() {
+    // Navigate to formation update page with the formation ID
+    this.router.navigate(['/centre/formation/update'], { queryParams: { formationId: this.formationid } });
   }
-  sendebookid(){
-    this.router.navigate(['/centre/ebook/update'],{queryParams:{ebookId:this.ebookid}})
+
+  sendebookid() {
+    // Navigate to eBook update page with the eBook ID
+    this.router.navigate(['/centre/ebook/update'], { queryParams: { ebookId: this.ebookid } });
   }
-  sendid(){
-    this.router.navigate(['/centre/formation/participants'],{queryParams:{formationId:this.formationid}})
-      }
 
-
+  sendid() {
+    // Navigate to participants page for the selected formation
+    this.router.navigate(['/centre/formation/participants'], { queryParams: { formationId: this.formationid } });
+  }
 }
