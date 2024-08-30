@@ -1,55 +1,34 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from './../../../../services/crud/api.service';
-import { NgForm } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router'; // Importing Router and ActivatedRoute for navigation and route handling
+import { ApiService } from './../../../../services/crud/api.service'; // Importing custom service for API operations
+import { NgForm } from '@angular/forms'; // Importing NgForm for handling forms
+import { Component, OnInit } from '@angular/core'; // Importing necessary Angular components
 
 @Component({
-  selector: 'app-update-centre',
-  templateUrl: './update-centre.component.html',
-  styleUrls: ['./update-centre.component.scss']
+  selector: 'app-update-centre', // Selector used to identify the component
+  templateUrl: './update-centre.component.html', // Template file for the component
+  styleUrls: ['./update-centre.component.scss'] // Stylesheet for the component
 })
 export class UpdateCentreComponent implements OnInit {
 
-centre:any
-centreId:any
+  centre: any; // Variable to hold the data of the centre to be updated
+  centreId: any; // Variable to store the centre ID obtained from the route parameters
 
-  constructor(private api:ApiService,private router:Router,private param:ActivatedRoute) { }
+  constructor(private api: ApiService, private router: Router, private param: ActivatedRoute) { }
 
   ngOnInit(): void {
-this.centreId=this.param.snapshot.queryParams['centreId']
-this.api.getcentre(this.centreId).subscribe(data=>{this.centre=data})
+    // Method that runs when the component is initialized
+    this.centreId = this.param.snapshot.queryParams['centreId']; // Getting the centre ID from the route query parameters
+    this.api.getcentre(this.centreId).subscribe(data => { this.centre = data }); // Fetching centre details using the centre ID
   }
 
-  // selectImage(event:any) {
-  //   if (event.target.files.length > 0) {
-  //     const path = event.target.files[0];
-  //     // console.log(path)
-  //     this.img = path;
-  //   }
-  // }
+  updatecentre(f: NgForm) {
+    // Method to update the centre information
+    let body = f.value; // Getting the form values
 
-  updatecentre(f:NgForm){
-
-    let body=f.value
-//  const formData = new FormData();
-//  formData.append('name',body.name)
-//  formData.append('email',body.email)
-//  formData.append('img', this.img)
-//  formData.append('tel',body.tel)
-//  formData.append('site',body.site)
-//  formData.append('services',body.services)
-//  formData.append('fiscale',body.fiscale)
-//  formData.append('license',body.license)
-//  formData.append('nom_manager',body.nom_manager)
-//  formData.append('prenom_manager',body.prenom_manager)
-//  formData.append('tel_manager',body.tel_manager)
-//  formData.append('localisation',body.localisation)
-//  formData.append('facebook',body.facebook)
-//  formData.append('linkedin',body.linkedin)
-//  formData.append('instagram',body.instagram)
-//  formData.append('twitter',body.twitter)
-
- this.api.updatecentre(this.centreId,body).subscribe(info=>this.router.navigate(['/admin/centre/details'],{ queryParams: { centreId: this.centreId } }))
-   }
+    // Calling the API to update the centre with the new data and then navigating to the centre details page
+    this.api.updatecentre(this.centreId, body).subscribe(info => 
+      this.router.navigate(['/admin/centre/details'], { queryParams: { centreId: this.centreId } })
+    );
+  }
 
 }
